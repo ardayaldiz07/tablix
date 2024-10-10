@@ -14,8 +14,6 @@ export default class Tablix {
         this.dataPathBase = [];
         this.formattedData = [];
         this.init();
-        this.searchQuery;
-
     }
 
     async fetchData() {
@@ -27,28 +25,27 @@ export default class Tablix {
         this.formattedData = this.dataPathBase;
         
         this.reInit();
+    }
+
+    renderTable() {
+        const table = TABLE();
+        const thead = new TableHeader(this.options.columns, this.options).render();
+        const tbody = new TableBody(this.options.columns, this.options, this.formattedData).render();
+
+        
+
+
+        table.appendChild(thead);   
+        table.appendChild(tbody);
+
+        this.container.innerHTML = '';
 
         // Yeri değişecek
         new Search(this.formattedData,(newData) => {
             this.formattedData = newData
             this.reInit();
-        },this.options.search.fields,document.body);
-    
-    }
-
-    renderTable() {
-
-        const table = TABLE();
-        const thead = new TableHeader(this.options.columns, this.options).render();
-        const tbody = new TableBody(this.options.columns, this.options, this.formattedData).render();
-
-        table.appendChild(thead);
-        table.appendChild(tbody);
+        },this.options.search.fields,this.container);
         
-        this.container.innerHTML = '';
-
-
-
         this.container.appendChild(table);
     }
 

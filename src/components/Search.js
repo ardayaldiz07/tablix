@@ -16,9 +16,6 @@ export default class Search {
 
     createSearchInput() {
         const wrapper = document.createElement('div');
-        wrapper.style.position = 'fixed';
-        wrapper.style.top = '20px';
-        wrapper.style.marginBottom = '100px';
 
         this.inputElement = document.createElement('input');
         this.inputElement.type = 'search';
