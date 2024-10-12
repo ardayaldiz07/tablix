@@ -1,6 +1,6 @@
 const TABLE = (options) => {
     const element = document.createElement('table');
-    element.className = "tablix";
+    element.className = "tx-table";
     return element;
 };
 

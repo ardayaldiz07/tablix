@@ -1,11 +1,10 @@
 export default class Search {
-    constructor(data, change, searchFields,container) {
+    constructor(container, options, change) {
         this.container = container;
-        this.data = data;
+        this.data = [];
         this.change = change;
-        this.searchFields = searchFields;
-        this.inputValue = '';
-        console.log(this.data);
+        this.defaultKeyword = options.search.default || '';
+        this.searchFields = options.search.fields;
 
         this.init();
     }
@@ -14,31 +13,44 @@ export default class Search {
         this.createSearchInput();
     }
 
-    createSearchInput() {
-        const wrapper = document.createElement('div');
+    setData(data) {
+        this.data = data;
 
-        this.inputElement = document.createElement('input');
-        this.inputElement.type = 'search';
-        this.inputElement.placeholder = `Search: ${this.searchFields.join(', ')}`;
-        this.inputElement.className = 'mb-2 border border-gray-600 p-2 rounded-lg bg-gray-700 text-white placeholder-gray-400 focus:outline-none focus:ring focus:ring-blue-500';
-
-        this.inputElement.addEventListener('input', this.handleInputChange.bind(this));
-
-        wrapper.appendChild(this.inputElement);
-        this.container.appendChild(wrapper); // İstediğiniz bir konteynere ekleyin
+        if (this.defaultKeyword) {
+            this.inputElement.value = this.defaultKeyword;
+            this.change(this.filteredData(this.defaultKeyword));
+        }
     }
 
-    handleInputChange(event) {
-        const value = event.target.value;
-        this.inputValue = value;
 
-        const filteredData = this.data.filter(item => {
+    filteredData(value) {
+        return this.data.filter(item => {
             return this.searchFields.some(field => {
                 const fieldValue = field.split('.').reduce((acc, curr) => acc && acc[curr], item);
                 return String(fieldValue).toLowerCase().includes(value.toLowerCase());
             });
         });
+    }
 
-        this.change(filteredData);
+    handleInputChange(event) {
+        console.log(event);
+        const value = event.target.value;
+        this.change(this.filteredData(value));
+    }
+
+
+    createSearchInput() {
+        const wrapper = document.createElement('div');
+        wrapper.className = "tx-filter";
+
+        this.inputElement = document.createElement('input');
+        this.inputElement.type = 'search';
+        this.inputElement.placeholder = `Search: ${this.searchFields.join(', ')}`;
+        this.inputElement.className = 'tx-search-input';
+
+        this.inputElement.addEventListener('input', this.handleInputChange.bind(this));
+
+        wrapper.appendChild(this.inputElement);
+        this.container.appendChild(wrapper);
     }
 }

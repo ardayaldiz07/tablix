@@ -1,18 +1,31 @@
 import { TABLE } from "./components/BaseElements.js";
 import dataByPath from "./components/helpers/dataByPath.js";
+import specEnabled from "./components/helpers/specEnabled.js";
 import Search from "./components/Search.js";
 import TableBody from "./components/TableBody.js";
 import TableHeader from "./components/TableHeader.js";
 
 export default class Tablix {
-    
+
     constructor(container, options) {
         this.container = document.querySelector(container);
+
+        //OPTIONS
         const defaultOptions = {};
         this.options = Object.assign(defaultOptions, options);
-        this.data = [];
-        this.dataPathBase = [];
-        this.formattedData = [];
+
+        //TABLE
+        this.tableWrapper = document.createElement('div');
+        this.tableWrapper.className = 'tx-table-wrapper';
+
+
+        //DATA
+        this.data = Object.assign([], this.options.data);
+        this.dataPathBase = Object.assign([], this.options.data);
+        this.formattedData = Object.assign([], this.options.data);
+
+
+
         this.init();
     }
 
@@ -23,30 +36,20 @@ export default class Tablix {
         this.data = data;
         this.dataPathBase = dataByPath(this.options.apiBasePath, data);
         this.formattedData = this.dataPathBase;
-        
-        this.reInit();
     }
 
     renderTable() {
+
         const table = TABLE();
         const thead = new TableHeader(this.options.columns, this.options).render();
         const tbody = new TableBody(this.options.columns, this.options, this.formattedData).render();
 
-        
-
-
-        table.appendChild(thead);   
+        table.appendChild(thead);
         table.appendChild(tbody);
 
-        this.container.innerHTML = '';
+        this.tableWrapper.innerHTML = "";
+        this.tableWrapper.appendChild(table);
 
-        // Yeri değişecek
-        new Search(this.formattedData,(newData) => {
-            this.formattedData = newData
-            this.reInit();
-        },this.options.search.fields,this.container);
-        
-        this.container.appendChild(table);
     }
 
     setupPagination() {
@@ -55,24 +58,57 @@ export default class Tablix {
 
     setupFilter() {
 
+        this.searchPlugin = new Search(this.container,
+            this.options,
+            (newData) => {
+                this.formattedData = newData;
+                this.reInit();
+            });
+
     }
 
+    pluginSet() {
+        if (this.searchPlugin) {
+            this.searchPlugin.setData(this.dataPathBase);
+        }
+
+    }
+
+
+    htmlTemplate() {
+
+        if (specEnabled(this.options.search)) {
+            this.setupFilter();
+        }
+
+        if (specEnabled(this.options.pagination)) {
+            this.setupPagination();
+        }
+
+        this.container.appendChild(this.tableWrapper);
+
+    }
     reInit() {
         this.renderTable();
     }
+    async init() {
+        if (!this.container) return;
 
-    init() {
+        this.container.classList.add('tablix');
 
+        //HTML TEMPLATE
+        this.htmlTemplate();
 
+        //DATA spec
         if (this.options.api) {
-            this.fetchData();
-
-        } else {
-            this.reInit()
+            await this.fetchData();
         }
 
+        this.pluginSet();
 
 
+
+        this.reInit();
     }
 }
 
