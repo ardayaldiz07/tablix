@@ -13,7 +13,7 @@
     <script type="module">
         import Tablix from './src/tablix.js';
         new Tablix("#table", {
-            api: 'https://apiv2.haberturk.com/api/v1/tummansetler',
+            api: '/data.json',
             apiBasePath: 'body.content.items',
             // data: [
             //     {
@@ -42,8 +42,8 @@
             },
             filter: {
                 enabled: true,
-                field:'category.items',
-                items: ['Gündem', 'Ekonomi', 'Dünya', 'İş-Yaşam']
+                field: 'category.items',
+                items: ['Gündem', 'Ekonomi', 'Dünya', 'İş-Yaşam', 'Yaşam']
             },
             columns: [
                 { field: 'newsId', text: 'ID', sort: true, sorted: true },
@@ -54,16 +54,14 @@
             ],
 
             pagination: {
-                itemPerPage: 5,
                 enabled: true,
                 length: [
-                    { text: '5', value: 5 },
+                    { text: '5', value: 5, selected: true },
                     { text: '10', value: 10 },
                     { text: '20', value: 20 },
                     { text: '30', value: 30 },
                     { text: '40', value: 40 },
-                    { text: '50', value: 50 },
-                    { text: 'All', value: 'All' }
+                    { text: '50', value: 50 }
                 ]
             },
         });

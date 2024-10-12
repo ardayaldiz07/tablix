@@ -1,7 +1,9 @@
 import { TABLE } from "./components/BaseElements.js";
-import CategoryFilter from "./components/CategoryFilter.js";
+import Filter from "./components/Filter.js";
 import dataByPath from "./components/helpers/dataByPath.js";
+import paginate from "./components/helpers/paginate.js";
 import specEnabled from "./components/helpers/specEnabled.js";
+import Pagination from "./components/Pagination.js";
 import Search from "./components/Search.js";
 import TableBody from "./components/TableBody.js";
 import TableHeader from "./components/TableHeader.js";
@@ -15,10 +17,17 @@ export default class Tablix {
         const defaultOptions = {};
         this.options = Object.assign(defaultOptions, options);
 
+        //TOP AREA
+        this.topArea = document.createElement('div');
+        this.topArea.className = 'tx-top';
+
         //TABLE
         this.tableWrapper = document.createElement('div');
         this.tableWrapper.className = 'tx-table-wrapper';
 
+        //BOTTOM AREA
+        this.bottomArea = document.createElement('div');
+        this.bottomArea.className = 'tx-bottom';
 
         //DATA
         this.data = Object.assign([], this.options.data);
@@ -41,9 +50,16 @@ export default class Tablix {
 
     renderTable() {
 
+        let useData = this.formattedData;
+
+        if (this.pagination) {
+            const paginatedData = paginate(this.formattedData, parseInt(this.paginationLength), parseInt(this.paginationIndex));
+            useData = paginatedData.visibleData;
+        }
+
         const table = TABLE();
         const thead = new TableHeader(this.options.columns, this.options).render();
-        const tbody = new TableBody(this.options.columns, this.options, this.formattedData).render();
+        const tbody = new TableBody(this.options.columns, this.options, useData).render();
 
         table.appendChild(thead);
         table.appendChild(tbody);
@@ -55,26 +71,41 @@ export default class Tablix {
 
     setupPagination() {
 
+        this.pagination = new Pagination(this.bottomArea,
+            this.options, (index, length) => {
+                this.paginationIndex = index;
+                this.paginationLength = length;
+                this.reInit();
+            }
+        );
     }
+
 
     setupSearch() {
-        this.searchPlugin = new Search(this.container,
+        this.searchPlugin = new Search(this.topArea,
             this.options,
-            (newData) => {
-                this.formattedData = newData;
+            (data) => {
+                this.formattedData = data;
+                if (this.filter) {
+                    this.filter.clear();
+                }
                 this.reInit();
-            });
-
+            }
+        );
     }
 
-    setupCategoryFilter() {
-         
-        this.categoryFilter = new CategoryFilter(this.container,this.options,
-            (filteredData) => {
-            this.formattedData = filteredData;
-            this.reInit();
-        })
-        
+    setupFilter() {
+
+        this.filter = new Filter(this.topArea, this.options,
+            (data) => {
+                this.formattedData = data;
+                if (this.searchPlugin) {
+                    this.searchPlugin.clear();
+                }
+                this.reInit();
+            }
+        );
+
     }
 
 
@@ -82,31 +113,47 @@ export default class Tablix {
         if (this.searchPlugin) {
             this.searchPlugin.setData(this.dataPathBase);
         }
-        if (this.categoryFilter) {
-            this.categoryFilter.setData(this.dataPathBase);
+
+        if (this.filter) {
+            this.filter.setData(this.dataPathBase);
         }
     }
 
     htmlTemplate() {
 
+        //TOP
+        if (specEnabled(this.options.filter)) {
+            this.setupFilter();
+        }
         if (specEnabled(this.options.search)) {
             this.setupSearch();
         }
 
+        if (this.topArea.innerHTML) {
+            this.container.appendChild(this.topArea);
+        }
+        //TOP
+
+
+        //BODY
+        this.container.appendChild(this.tableWrapper);
+        //BODY
+
+        //BOTTOM
         if (specEnabled(this.options.pagination)) {
             this.setupPagination();
         }
-
-        if(specEnabled(this.options.filter)){
-            this.setupCategoryFilter();
+        if (this.bottomArea.innerHTML) {
+            this.container.appendChild(this.bottomArea);
         }
-    
-        this.container.appendChild(this.tableWrapper);
-
+        //BOTTOM
     }
+
     reInit() {
+
         this.renderTable();
     }
+
     async init() {
         if (!this.container) return;
 

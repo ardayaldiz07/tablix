@@ -6,11 +6,7 @@ export default class Search {
         this.defaultKeyword = options.search.default || '';
         this.searchFields = options.search.fields;
 
-        this.init();
-    }
-
-    init() {
-        this.createSearchInput();
+        this.render();
     }
 
     setData(data) {
@@ -33,15 +29,17 @@ export default class Search {
     }
 
     handleInputChange(event) {
-        console.log(event);
         const value = event.target.value;
         this.change(this.filteredData(value));
     }
 
+    clear(){
+        this.inputElement.value = '';
+    }
 
     createSearchInput() {
         const wrapper = document.createElement('div');
-        wrapper.className = "tx-filter";
+        wrapper.className = "tx-search";
 
         this.inputElement = document.createElement('input');
         this.inputElement.type = 'search';
@@ -52,5 +50,9 @@ export default class Search {
 
         wrapper.appendChild(this.inputElement);
         this.container.appendChild(wrapper);
+    }
+
+    render() {
+        this.createSearchInput();
     }
 }
