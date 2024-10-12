@@ -1,4 +1,5 @@
 import { TABLE } from "./components/BaseElements.js";
+import CategoryFilter from "./components/CategoryFilter.js";
 import dataByPath from "./components/helpers/dataByPath.js";
 import specEnabled from "./components/helpers/specEnabled.js";
 import Search from "./components/Search.js";
@@ -56,8 +57,7 @@ export default class Tablix {
 
     }
 
-    setupFilter() {
-
+    setupSearch() {
         this.searchPlugin = new Search(this.container,
             this.options,
             (newData) => {
@@ -67,24 +67,40 @@ export default class Tablix {
 
     }
 
+    setupCategoryFilter() {
+         
+        this.categoryFilter = new CategoryFilter(this.container,this.options,
+            (filteredData) => {
+            this.formattedData = filteredData;
+            this.reInit();
+        })
+        
+    }
+
+
     pluginSet() {
         if (this.searchPlugin) {
             this.searchPlugin.setData(this.dataPathBase);
         }
-
+        if (this.categoryFilter) {
+            this.categoryFilter.setData(this.dataPathBase);
+        }
     }
-
 
     htmlTemplate() {
 
         if (specEnabled(this.options.search)) {
-            this.setupFilter();
+            this.setupSearch();
         }
 
         if (specEnabled(this.options.pagination)) {
             this.setupPagination();
         }
 
+        if(specEnabled(this.options.filter)){
+            this.setupCategoryFilter();
+        }
+    
         this.container.appendChild(this.tableWrapper);
 
     }
