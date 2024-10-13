@@ -4,7 +4,7 @@ export default class Pagination {
         this.options = options;
         this.callback = callback;
         this.selectedLength = 5;
-
+        this.currentPage = 0;
         // this.data = [];
 
 
@@ -48,10 +48,19 @@ export default class Pagination {
         //Sıradaki
         const nextButton = document.createElement('button');
         nextButton.innerHTML = 'Sıradaki';
+        nextButton.addEventListener("click", ()=>{
+            this.currentPage++;
+            this.callback(this.currentPage, this.selectedLength);
+        });
 
         //Önceki
         const prevButton = document.createElement('button');
         prevButton.innerHTML = 'Önceki';
+
+        prevButton.addEventListener("click", ()=>{
+            this.currentPage--;
+            this.callback(this.currentPage, this.selectedLength);
+        });
 
         wrapper.appendChild(prevButton);
         wrapper.appendChild(nextButton);
@@ -69,6 +78,6 @@ export default class Pagination {
         wrapper.appendChild(buttons);
         this.container.appendChild(wrapper);
 
-        this.callback(0, this.selectedLength);
+        this.callback(this.currentPage, this.selectedLength);
     }
 }
