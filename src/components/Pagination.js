@@ -1,6 +1,3 @@
-import paginate from "./helpers/paginate.js";
-
-
 export default class Pagination {
     constructor(container, options, callback) {
         this.container = container;
@@ -14,11 +11,12 @@ export default class Pagination {
         this.render();
     }
 
-
     handleChange(index) {
         this.selectedLength = index;
         this.callback(0, this.selectedLength);
     }
+
+
 
     lengthFilter() {
 
@@ -44,12 +42,31 @@ export default class Pagination {
         return select;
     }
 
+    renderButtons(){
+        const wrapper = document.createElement('div');
+
+        //Sıradaki
+        const nextButton = document.createElement('button');
+        nextButton.innerHTML = 'Sıradaki';
+
+        //Önceki
+        const prevButton = document.createElement('button');
+        prevButton.innerHTML = 'Önceki';
+
+        wrapper.appendChild(prevButton);
+        wrapper.appendChild(nextButton);
+
+        return wrapper;
+    }
+
     render() {
         const wrapper = document.createElement('div');
+        const buttons = this.renderButtons();
         wrapper.className = "tx-pagination";
 
 
         wrapper.appendChild(this.lengthFilter());
+        wrapper.appendChild(buttons);
         this.container.appendChild(wrapper);
 
         this.callback(0, this.selectedLength);

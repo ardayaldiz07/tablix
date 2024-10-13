@@ -76,7 +76,7 @@ export default class Tablix {
                 this.paginationIndex = index;
                 this.paginationLength = length;
                 this.reInit();
-            }
+            },
         );
     }
 
