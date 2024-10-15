@@ -5,6 +5,7 @@ export default class Pagination {
         this.callback = callback;
         this.selectedLength = 5;
         this.currentPage = 0;
+        this.paginatedData=[];
         // this.data = [];
 
 
@@ -16,7 +17,9 @@ export default class Pagination {
         this.callback(0, this.selectedLength);
     }
 
-
+    setPaginatedData(data){
+        this.paginatedData = data;
+    }
 
     lengthFilter() {
 
@@ -49,8 +52,13 @@ export default class Pagination {
         const nextButton = document.createElement('button');
         nextButton.innerHTML = 'Sıradaki';
         nextButton.addEventListener("click", ()=>{
-            this.currentPage++;
-            this.callback(this.currentPage, this.selectedLength);
+            if(this.currentPage<this.paginatedData.totalPages-1){
+                this.currentPage++;
+                this.callback(this.currentPage, this.selectedLength);
+            }
+            // else{
+            //     nextButton.classList.toggle('tx-disabled');
+            // }
         });
 
         //Önceki
@@ -58,8 +66,13 @@ export default class Pagination {
         prevButton.innerHTML = 'Önceki';
 
         prevButton.addEventListener("click", ()=>{
-            this.currentPage--;
-            this.callback(this.currentPage, this.selectedLength);
+            if(this.currentPage>0){
+                this.currentPage--;
+                this.callback(this.currentPage, this.selectedLength);        
+            }
+            // else{
+            //     nextButton.classList.toggle('tx-disabled');
+            // }
         });
 
         wrapper.appendChild(prevButton);
