@@ -1,0 +1,98 @@
+.light-theme {
+    background-color: #fff;
+    color: #333;
+    border-color: #ddd;
+}
+.light-theme .tx-table {
+    border: 1px solid #ddd;
+}
+.light-theme .tx-table th, .light-theme .tx-table td {
+    border-bottom: 1px solid #ddd;
+}
+.light-theme .tx-table tr:hover {
+    background-color: #f0f0f0;
+}
+.light-theme .tx-search-input, .light-theme .tx-filter select, .light-theme .tx-pagination select {
+    min-height: 40px;
+    padding: 5px 10px;
+    background-color: #fff;
+    color: #333;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    font-size: 14px;
+    cursor: pointer;
+}
+.light-theme .tx-search-input:hover, .light-theme .tx-filter select:hover, .light-theme .tx-pagination select:hover {
+    opacity: 0.9;
+}
+.light-theme .tx-search-input:focus, .light-theme .tx-filter select:focus, .light-theme .tx-pagination select:focus {
+    outline: none;
+    border-color: #4a90e2;
+}
+.light-theme .tx-pagination button {
+    min-height: 40px;
+    padding: 5px 10px;
+    background-color: #4a90e2;
+    color: #333;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    font-size: 14px;
+    cursor: pointer;
+    min-width: 80px;
+}
+.light-theme .tx-pagination button:hover {
+    opacity: 0.9;
+}
+.light-theme .tx-pagination button:focus {
+    outline: none;
+    border-color: #4a90e2;
+}
+.dark-theme {
+    background-color: #2e2e2e;
+    color: #f1f1f1;
+    border-color: #444;
+}
+.dark-theme .tx-table {
+    border: 1px solid #444;
+}
+.dark-theme .tx-table th, .dark-theme .tx-table td {
+    border-bottom: 1px solid #444;
+}
+.dark-theme .tx-table tr:hover {
+    background-color: #3a3a3a;
+}
+.dark-theme .tx-search-input, .dark-theme .tx-filter select, .dark-theme .tx-pagination select {
+    min-height: 40px;
+    padding: 5px 10px;
+    background-color: #2e2e2e;
+    color: #f1f1f1;
+    border: 1px solid #444;
+    border-radius: 5px;
+    font-size: 14px;
+    cursor: pointer;
+}
+.dark-theme .tx-search-input:hover, .dark-theme .tx-filter select:hover, .dark-theme .tx-pagination select:hover {
+    opacity: 0.9;
+}
+.dark-theme .tx-search-input:focus, .dark-theme .tx-filter select:focus, .dark-theme .tx-pagination select:focus {
+    outline: none;
+    border-color: #4a90e2;
+}
+.dark-theme .tx-pagination button {
+    min-height: 40px;
+    padding: 5px 10px;
+    background-color: #4a90e2;
+    color: #f1f1f1;
+    border: 1px solid #444;
+    border-radius: 5px;
+    font-size: 14px;
+    cursor: pointer;
+    min-width: 80px;
+}
+.dark-theme .tx-pagination button:hover {
+    opacity: 0.9;
+}
+.dark-theme .tx-pagination button:focus {
+    outline: none;
+    border-color: #4a90e2;
+}

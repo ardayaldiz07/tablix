@@ -33,6 +33,24 @@
             //         "title": "deneme title 3",
             //         "category": "Umut 3",
             //         "spot": "Deneme Spot"
+            //     },
+            //     {
+            //         "newsId": 1,
+            //         "title": "deneme title 1",
+            //         "category": "Umut",
+            //         "spot": "Deneme Spot"
+            //     },
+            //     {
+            //         "newsId": 2,
+            //         "title": "deneme title 2",
+            //         "category": "Umut 2",
+            //         "spot": "Deneme Spot"
+            //     },
+            //     {
+            //         "newsId": 3,
+            //         "title": "deneme title 3",
+            //         "category": "Umut 3",
+            //         "spot": "Deneme Spot"
             //     }
             // ],
             search: {
@@ -55,9 +73,11 @@
 
             pagination: {
                 enabled: true,
-                enabledExtra:true,
+                buttons: [
+                    'start', 'prev', 'numbers', 'next', 'end'
+                ],
                 length: [
-                    { text: '5', value: 5, selected: true },
+                    { text: '5', value: 5 , selected: true},
                     { text: '10', value: 10 },
                     { text: '20', value: 20 },
                     { text: '30', value: 30 },

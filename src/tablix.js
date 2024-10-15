@@ -16,6 +16,7 @@ export default class Tablix {
         //OPTIONS
         const defaultOptions = {};
         this.options = Object.assign(defaultOptions, options);
+        this.reUpdate = false;
 
         //TOP AREA
         this.topArea = document.createElement('div');
@@ -49,14 +50,17 @@ export default class Tablix {
     }
 
     renderTable() {
-
         let useData = this.formattedData;
 
         if (this.pagination) {
             const paginatedData = paginate(this.formattedData, parseInt(this.paginationLength), parseInt(this.paginationIndex));
             this.pagination.setPaginatedData(paginatedData);
+            if (!this.reUpdate) {
+                this.pagination.render();   
+            }
             useData = paginatedData.visibleData;
         }
+
 
         const table = TABLE();
         const thead = new TableHeader(this.options.columns, this.options).render();
@@ -73,12 +77,17 @@ export default class Tablix {
     setupPagination() {
 
         this.pagination = new Pagination(this.bottomArea,
-            this.options, (index, length) => {
+            this.options, (index, length, reupdate = false) => {
                 this.paginationIndex = index;
                 this.paginationLength = length;
-                this.reInit();
+                if (reupdate) {
+                    this.reUpdate = reupdate;
+                    this.reInit();
+                }
             },
         );
+
+        this.reInit();
     }
 
 
@@ -151,7 +160,7 @@ export default class Tablix {
     }
 
     reInit() {
-
+        console.log("reInit");
         this.renderTable();
     }
 
@@ -160,19 +169,19 @@ export default class Tablix {
 
         this.container.classList.add('tablix');
 
-        //HTML TEMPLATE
-        this.htmlTemplate();
-
         //DATA spec
         if (this.options.api) {
             await this.fetchData();
         }
 
+        // //HTML TEMPLATE
+        this.htmlTemplate();
+
         this.pluginSet();
 
-
-
-        this.reInit();
+        if (!this.pagination) {
+            this.reInit();
+        }
     }
 }
 

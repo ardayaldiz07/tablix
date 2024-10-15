@@ -1,0 +1,72 @@
+// Define theme variables
+$light-background: #ffffff;
+$light-text: #333333;
+$dark-background: #2e2e2e;
+$dark-text: #f1f1f1;
+
+$primary-color: #4a90e2;
+$border-color-light: #ddd;
+$border-color-dark: #444;
+$hover-background-light: #f0f0f0;
+$hover-background-dark: #3a3a3a;
+
+// Mixin for shared input styles (buttons, selects)
+@mixin input-styles($background, $text-color, $border-color) {
+  min-height: 40px;
+  padding: 5px 10px;
+  background-color: $background;
+  color: $text-color;
+  border: 1px solid $border-color;
+  border-radius: 5px;
+  font-size: 14px;
+  cursor: pointer;
+
+  &:hover {
+    opacity: 0.9;
+  }
+
+  &:focus {
+    outline: none;
+    border-color: $primary-color;
+  }
+}
+
+// Mixin for dark/light theme styles
+@mixin theme($background, $text-color, $border-color, $hover-bg) {
+  background-color: $background;
+  color: $text-color;
+  border-color: $border-color;
+
+  .tx-table {
+    border: 1px solid $border-color;
+
+    th, td {
+      border-bottom: 1px solid $border-color;
+    }
+
+    tr:hover {
+      background-color: $hover-bg;
+    }
+  }
+
+  .tx-search-input,
+  .tx-filter select,
+  .tx-pagination select {
+    @include input-styles($background, $text-color, $border-color);
+  }
+
+  .tx-pagination button {
+    @include input-styles($primary-color, $text-color, $border-color);
+    min-width: 80px; // Ensure buttons are wide enough
+  }
+}
+
+// Light theme
+.light-theme {
+  @include theme($light-background, $light-text, $border-color-light, $hover-background-light);
+}
+
+// Dark theme
+.dark-theme {
+  @include theme($dark-background, $dark-text, $border-color-dark, $hover-background-dark);
+}
