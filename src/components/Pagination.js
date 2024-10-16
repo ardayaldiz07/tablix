@@ -54,8 +54,10 @@ export default class Pagination {
         return null;
     }
 
-    renderPageNumbers(unwrapper=false) {
+    renderPageNumbers(unwrapper=false,start,end) {
         const wrapper = document.createElement('div');
+
+        // 1...  Araya Boşluk
         wrapper.classList.add('tx-page-number-wrapper');
         wrapper.style.display = 'flex';
 
@@ -65,14 +67,36 @@ export default class Pagination {
         console.log("renderPageNumbers", this.paginatedData);
 
         const totalPages = this.paginatedData.totalPages;
-        const visiblePages = this.paginatedData.itemsPerPage;
+        const visiblePages =3;
 
-        let startPage = Math.max(0, this.currentPage - Math.floor(visiblePages / 2));
-        let endPage = Math.min(totalPages - 1, startPage + visiblePages - 1);
+        let startPage = start?? Math.max(0, this.currentPage - Math.floor(visiblePages / 2));
+        let endPage = end?? Math.min(totalPages - 1, startPage + visiblePages - 1);
         
         console.log(startPage,endPage)
 
+        if(this.currentPage > 1){
+            const startButton = this.startButton("1");
+            buttonContainer.appendChild(startButton);
+        }
+
+        const goLeft = document.createElement('button');
+        goLeft.innerText = '<';
+        buttonContainer.appendChild(goLeft);
+        goLeft.addEventListener('click', () =>{
+            if(startPage>0){
+                startPage--;
+                endPage--;
+    
+                this.nav.numbers.innerHTML = "";
+                this.nav.numbers.appendChild(this.renderPageNumbers(true,startPage,endPage));
+            }
+        });
+
+        
+
+
         for (let i = startPage; i <= endPage; i++) {
+            // Küçüktür büyüktür eklenecek. sayfa için textBox 
             const pageButton = document.createElement('button');
             pageButton.style.margin = '5px';
             pageButton.style.cursor = 'pointer';
@@ -92,6 +116,29 @@ export default class Pagination {
                 
             });
             buttonContainer.appendChild(pageButton);
+        }
+
+        const goRight = document.createElement('button');
+        goRight.innerText = '>';
+        buttonContainer.appendChild(goRight);
+        goRight.addEventListener('click', () =>{
+            if(endPage<totalPages-1){
+                startPage++;
+                endPage++;
+    
+                this.nav.numbers.innerHTML = "";
+                this.nav.numbers.appendChild(this.renderPageNumbers(true,startPage,endPage));
+            }
+        });
+
+
+        if(this.currentPage < totalPages-2){
+            const point = document.createElement('span');
+            point.innerText=' . . . ';
+            buttonContainer.appendChild(point);
+            
+            const endButton = this.endButton(totalPages);
+            buttonContainer.appendChild(endButton);
         }
 
         if (!unwrapper) {
@@ -132,27 +179,52 @@ export default class Pagination {
         return prevButton;
     }
 
-    startButton() {
+    renderSelectbox(){
+        const selectBox = document.createElement('select');
+        for(let i=0; i<this.paginatedData.totalPages; i++){
+            const option = document.createElement('option');
+            option.value = i;
+            option.innerText = (i+1);
+            selectBox.appendChild(option);
+        };
+
+        selectBox.addEventListener('change',(event)=>{
+            this.currentPage = parseInt(event.target.value);
+            this.callback(this.currentPage,this.selectedLength,true);
+
+            this.nav.numbers.innerHTML = "";
+            this.nav.numbers.appendChild(this.renderPageNumbers(true));
+            
+        });
+        return selectBox;
+    }
+
+    startButton(text) {
         const goToStartButton = document.createElement('button');
 
-        goToStartButton.innerText = 'Başa dön';
+        goToStartButton.innerText = text;
         goToStartButton.addEventListener('click', () => {
             if (this.currentPage > 0) {
                 this.currentPage = 0;
                 this.callback(this.currentPage, this.selectedLength, true);
+                this.nav.numbers.innerHTML = "";
+                this.nav.numbers.appendChild(this.renderPageNumbers(true));
             }
         });
 
         return goToStartButton;
     }
 
-    endButton() {
+    endButton(text) {
         const goToEndButton = document.createElement('button');
-        goToEndButton.innerText = 'Sona git';
+        goToEndButton.innerText = text;
 
         goToEndButton.addEventListener('click', () => {
             this.currentPage = parseInt(this.paginatedData.totalPages - 1);
             this.callback(this.currentPage, this.selectedLength, true);
+            this.nav.numbers.innerHTML = "";
+            this.nav.numbers.appendChild(this.renderPageNumbers(true));
+            
         });
         return goToEndButton;
     }
@@ -164,8 +236,8 @@ export default class Pagination {
         const navigationMap = {
             "prev": this.prevButton(),
             "next": this.nextButton(),
-            "start": this.startButton(),
-            "end": this.endButton(),
+            "start": this.startButton('Başa Dön'),
+            "end": this.endButton('Sona Git'),
             "numbers": this.renderPageNumbers()
         };
 
@@ -200,10 +272,13 @@ export default class Pagination {
         const renderButtons = this.renderButtons();
         const lengthFilter = this.lengthFilter();
 
+        const selectBox = this.renderSelectbox();
+
         if (lengthFilter) {
             wrapper.appendChild(lengthFilter);
         }
         wrapper.appendChild(renderButtons);
+        wrapper.appendChild(selectBox);
 
         this.container.appendChild(wrapper);
 
