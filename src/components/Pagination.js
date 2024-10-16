@@ -57,7 +57,7 @@ export default class Pagination {
     renderPageNumbers(unwrapper=false,start,end) {
         const wrapper = document.createElement('div');
 
-        // 1...  Araya Boşluk
+   
         wrapper.classList.add('tx-page-number-wrapper');
         wrapper.style.display = 'flex';
 
@@ -71,8 +71,6 @@ export default class Pagination {
 
         let startPage = start?? Math.max(0, this.currentPage - Math.floor(visiblePages / 2));
         let endPage = end?? Math.min(totalPages - 1, startPage + visiblePages - 1);
-        
-        console.log(startPage,endPage)
 
         if(this.currentPage > 1){
             const startButton = this.startButton("1");
@@ -92,11 +90,8 @@ export default class Pagination {
             }
         });
 
-        
-
-
         for (let i = startPage; i <= endPage; i++) {
-            // Küçüktür büyüktür eklenecek. sayfa için textBox 
+         
             const pageButton = document.createElement('button');
             pageButton.style.margin = '5px';
             pageButton.style.cursor = 'pointer';
@@ -266,21 +261,24 @@ export default class Pagination {
     }
 
     render() {
-        const wrapper = document.createElement('div');
-        wrapper.className = "tx-pagination";
-
+        if (this.paginationWrapper) {
+            this.paginationWrapper.remove();
+        }
+        this.paginationWrapper = document.createElement('div');
+        this.paginationWrapper.className = "tx-pagination";
+       
         const renderButtons = this.renderButtons();
         const lengthFilter = this.lengthFilter();
 
         const selectBox = this.renderSelectbox();
 
         if (lengthFilter) {
-            wrapper.appendChild(lengthFilter);
+            this.paginationWrapper.appendChild(lengthFilter);
         }
-        wrapper.appendChild(renderButtons);
-        wrapper.appendChild(selectBox);
+        this.paginationWrapper.appendChild(renderButtons);
+        this.paginationWrapper.appendChild(selectBox);
 
-        this.container.appendChild(wrapper);
+        this.container.appendChild(this.paginationWrapper);
 
     }
 }

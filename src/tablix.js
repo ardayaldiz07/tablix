@@ -55,7 +55,9 @@ export default class Tablix {
         if (this.pagination) {
             const paginatedData = paginate(this.formattedData, parseInt(this.paginationLength), parseInt(this.paginationIndex));
             this.pagination.setPaginatedData(paginatedData);
+            
             if (!this.reUpdate) {
+                console.log("re update");
                 this.pagination.render();   
             }
             useData = paginatedData.visibleData;
