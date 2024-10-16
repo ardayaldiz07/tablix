@@ -10,9 +10,9 @@
 <body>
     <div id="table" ></div>
 
-    <script type="module">
-        import Tablix from './src/tablix.js';
-        new Tablix("#table", {
+    <script src="/output/tablix.min.js"></script>
+    <script>
+       var tablix = new Tablix("#table", {
             theme: 'default',
             api: '/data.json',
             apiBasePath: 'body.content.items',
@@ -88,6 +88,8 @@
             },
         });
     </script>
+
+    
 </body>
 
 </html>

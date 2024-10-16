@@ -187,7 +187,6 @@ export default class Tablix {
     }
 }
 
-
 //USAGE
 // new Tablix("#table", {
 //     api: 'https://apiv2.haberturk.com/api/v1/tummansetler',

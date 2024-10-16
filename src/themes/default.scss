@@ -10,6 +10,8 @@ $border-color-dark: #444;
 $hover-background-light: #f0f0f0;
 $hover-background-dark: #3a3a3a;
 
+// @import '~theme1comp/_components';
+
 // Mixin for shared input styles (buttons, selects)
 @mixin input-styles($background, $text-color, $border-color) {
   min-height: 40px;
@@ -37,10 +39,15 @@ $hover-background-dark: #3a3a3a;
   color: $text-color;
   border-color: $border-color;
 
+  .tx-top{
+    display: flex; justify-content:  space-between; padding: 10px;
+  }
+
   .tx-table {
     border: 1px solid $border-color;
 
-    th, td {
+    th,
+    td {
       border-bottom: 1px solid $border-color;
     }
 
@@ -61,12 +68,17 @@ $hover-background-dark: #3a3a3a;
   }
 }
 
-// Light theme
-.light-theme {
-  @include theme($light-background, $light-text, $border-color-light, $hover-background-light);
-}
 
-// Dark theme
-.dark-theme {
-  @include theme($dark-background, $dark-text, $border-color-dark, $hover-background-dark);
+.tablix {
+
+  // Light theme
+  &.light-theme {
+    @include theme($light-background, $light-text, $border-color-light, $hover-background-light);
+  }
+
+  // Dark theme
+  &.dark-theme {
+    @include theme($dark-background, $dark-text, $border-color-dark, $hover-background-dark);
+  }
+
 }
