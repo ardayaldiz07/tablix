@@ -4,11 +4,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="output/default-theme.min.css">
     <title>Document</title>
 </head>
 
 <body>
-    <div id="table" ></div>
+    <div id="table" class="dark-mode"></div>
 
     <script src="/output/tablix.min.js"></script>
     <script>
@@ -16,44 +17,6 @@
             theme: 'default',
             api: '/data.json',
             apiBasePath: 'body.content.items',
-            // data: [
-            //     {
-            //         "newsId": 1,
-            //         "title": "deneme title 1",
-            //         "category": "Umut",
-            //         "spot": "Deneme Spot"
-            //     },
-            //     {
-            //         "newsId": 2,
-            //         "title": "deneme title 2",
-            //         "category": "Umut 2",
-            //         "spot": "Deneme Spot"
-            //     },
-            //     {
-            //         "newsId": 3,
-            //         "title": "deneme title 3",
-            //         "category": "Umut 3",
-            //         "spot": "Deneme Spot"
-            //     },
-            //     {
-            //         "newsId": 1,
-            //         "title": "deneme title 1",
-            //         "category": "Umut",
-            //         "spot": "Deneme Spot"
-            //     },
-            //     {
-            //         "newsId": 2,
-            //         "title": "deneme title 2",
-            //         "category": "Umut 2",
-            //         "spot": "Deneme Spot"
-            //     },
-            //     {
-            //         "newsId": 3,
-            //         "title": "deneme title 3",
-            //         "category": "Umut 3",
-            //         "spot": "Deneme Spot"
-            //     }
-            // ],
             search: {
                 enabled: true,
                 default: "",
