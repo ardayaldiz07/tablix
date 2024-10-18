@@ -20,14 +20,14 @@
 
 
 .tablix {
-
-  max-height: 80vh;
-  overflow-y: scroll;
+  
+  // max-height: 80vh;
+  // overflow-y: scroll;
   // Define theme variables
   $primary-color: linear-gradient(135deg, #4a90e2, #7b6cff);
 
   // Light
-  $light-background: #ffffff;
+  $light-background: #c9c9c9;
   $light-text: #333333; 
   $border-color-light: #dcdcdc;
   $hover-background-light: #f0f0f0; 
@@ -36,28 +36,42 @@
   //Dark
   $dark-background: #2c2c2c;
   $dark-text: #eaeaea; 
-  $border-color-dark: #444; 
-  $hover-background-dark: #333;
+  $border-color-dark: #2c2c2c; 
+  $hover-background-dark: #e4d3d371;
   //Dark
 
   //Blue
   $blue-background:#252253bd;
   $blue-text:#eaeaea;
-  $border-color-blue: #9589ff; 
-  $hover-background-blue: #493b6e6c;
+  $border-color-blue: #252253bd; 
+  $hover-background-blue: #252253bd;
   //Blue
 
   //Red
   $red-background:#a30b00e7;
   $red-text:#eaeaea;
-  $border-color-red: #db22154f; 
-  $hover-background-red: #db22154f;
+  $border-color-red: #a30b00e7; 
+  $hover-background-red: #a30b00e7;
   //Red
+
+  //Green
+  $green-background:#1fb911e7;
+  $green-text:#eaeaea;
+  $border-color-green: #1fb911e7; 
+  $hover-background-green: #1fb911e7;
+  //Green
+
+  //Orange
+  $orange-background:#df8600e7;
+  $orange-text:#eaeaea;
+  $border-color-orange: #df8600e7; 
+  $hover-background-orange: #df8600e7;
+  //Orange
 
 
   // Mixin for shared input styles
   @mixin input-styles($background, $text-color, $border-color) {
-    min-height: 40px; // Küçük yükseklik
+    min-height: 20px; // Küçük yükseklik
     padding: 8px 12px; // Küçük iç boşluk
     background-color: $background;
     color: $text-color;
@@ -102,20 +116,20 @@
 
       .tx-filter select {
         @include select-box-styles($background, $text-color, $border-color);
-        width: 200px; // Belirli bir genişlik
+        width: 150px; // Belirli bir genişlik
+        border-radius: 10px;
       }
 
       .tx-search .tx-search-input {
         @include input-styles($background, $text-color, $border-color);
         width: 200px; // Belirli bir genişlik
+        border-radius: 10px;
       }
     }
-
+    border-radius: 10px;
     .tx-table-wrapper {
-
-      
-
       .tx-table {
+        
         border: 1px solid $border-color;
         border-radius: 10px; // Yuvarlatılmış köşe
         overflow: hidden; // Köşelerin düzgün kalması
@@ -146,11 +160,15 @@
         button, select {
           @include input-styles($primary-color, black, $border-color); // Buton metin rengi
           margin: 5px; // Alan için margin
+          
         }
-
         button.active {
           @include input-styles($border-color, black, $border-color); // Aktif buton
-        }        
+        }
+        
+        .tx-page-number{
+          width: 40px;
+        }
       }
     }
   }
@@ -178,4 +196,50 @@
   &.red-theme{
     @include theme($red-background, $red-text, $border-color-red, $hover-background-red);
   }
+
+  // Green theme
+  &.green-theme{
+    @include theme($green-background, $green-text, $border-color-green, $hover-background-green);
+  }
+
+  // Green theme
+  &.orange-theme{
+    @include theme($orange-background, $orange-text, $border-color-orange, $hover-background-orange);
+  }
 }
+
+// Mixin for shared button styles
+@mixin button-styles($background, $text-color, $border-color) {
+  min-height: 40px; // Yükseklik
+  padding: 10px 20px; // İç boşluk
+  background-color: $background;
+  color: $text-color;
+  border: 2px solid $border-color;
+  border-radius: 25px; // Daha yuvarlak
+  font-size: 16px; // Yazı boyutu
+  font-weight: bold; // Kalın yazı
+  cursor: pointer;
+  transition: all 0.3s ease; // Akıcı geçiş
+
+  // Gölgelendirme
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  
+  &:hover {
+    opacity: 0.9;
+    box-shadow: 0 6px 10px rgba(0, 0, 0, 0.2); // Hover sırasında daha belirgin gölge
+  }
+
+  &:focus {
+    outline: none;
+    border-color: $primary-color;
+    box-shadow: 0 0 5px $primary-color; // Işık efekti
+  }
+
+  // Active state
+  &:active {
+    background-color: darken($background, 5%); // Tıklama sırasında arka plan rengi
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2); // Tıklandığında daha az gölge
+  }
+}
+
+

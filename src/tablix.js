@@ -174,13 +174,28 @@ export default class Tablix {
         this.renderTable();
     }
 
+    // Kullanılmayacak
+    async loading(){
+        const loading = document.createElement('h1');
+        loading.innerText="Loading";
+        loading.style.textAlign='center';
+        this.container.appendChild(loading);
+        for(let i=0; i<3; i++){
+            loading.innerText+=".";
+            await new Promise(resolve => setTimeout(resolve, 150));
+        }
+        await new Promise(resolve => setTimeout(resolve, 300));
+        this.container.removeChild(loading);   
+        return;
+    }
+
     async init() {
         if (!this.container) return;
-
         this.container.classList.add('tablix');
-
+        
         //DATA spec
-        if (this.options.api) {
+        if (this.options.api) {            
+            //await this.loading();
             await this.fetchData();
         }
 
