@@ -57,7 +57,6 @@ export default class Tablix {
             this.pagination.setPaginatedData(paginatedData);
             
             if (!this.reUpdate) {
-                console.log("re update");
                 this.pagination.render();   
             }
             useData = paginatedData.visibleData;
@@ -100,6 +99,9 @@ export default class Tablix {
                 this.formattedData = data;
                 if (this.filter) {
                     this.filter.clear();
+                }
+                if(this.pagination){
+                    this.pagination.render();
                 }
                 this.reInit();
             }
@@ -166,11 +168,9 @@ export default class Tablix {
         link.href='./output/default-theme.min.css';
 
         document.head.appendChild(link);
-        link.onload=()=>{console.log("Css yüklendi")}
     }
 
     reInit() {
-        console.log("reInit");
         this.renderTable();
     }
 

@@ -33,7 +33,7 @@ export default class Pagination {
             lengthWrapper.className = "tx-length";
 
             const select = document.createElement('select');
-            select.className = "txt-length-select";
+            select.className = "tx-length-select";
             for (let i = 0, length = this.options.pagination.length.length; i < length; i++) {
                 const item = this.options.pagination.length[i];
 
@@ -66,8 +66,6 @@ export default class Pagination {
 
         const buttonContainer = document.createElement('div');
         buttonContainer.className = "tx-page-number-container";
-
-        console.log("renderPageNumbers", this.paginatedData);
 
         const totalPages = this.paginatedData.totalPages;
         const visiblePages =3;
@@ -155,7 +153,7 @@ export default class Pagination {
 
     nextButton() {
         const nextButton = document.createElement('button');
-        nextButton.className = "txt-next-btn";
+        nextButton.className = "tx-next-btn";
         nextButton.innerHTML = 'Sıradaki';
         nextButton.addEventListener("click", () => {
 
@@ -170,7 +168,7 @@ export default class Pagination {
 
     prevButton() {
         const prevButton = document.createElement('button');
-        prevButton.className = "txt-prev-btn";
+        prevButton.className = "tx-prev-btn";
         prevButton.innerHTML = 'Önceki';
 
         prevButton.addEventListener("click", () => {
@@ -241,7 +239,7 @@ export default class Pagination {
 
     renderButtons() {
         const wrapper = document.createElement('div');
-        wrapper.className = "txt-navigate-buttons";
+        wrapper.className = "tx-navigate-buttons";
 
         const navigationMap = {
             "prev": this.prevButton(),
@@ -255,7 +253,6 @@ export default class Pagination {
         for (let i = 0, length = this.options.pagination.buttons.length; i < length; i++) {
             const name = this.options.pagination.buttons[i];
             this.nav[name] = navigationMap[name];
-            console.log(navigationMap[name]);
             wrapper.appendChild(this.nav[name]);
         }
 

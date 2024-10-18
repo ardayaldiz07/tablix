@@ -17,7 +17,8 @@ export default class Filter {
     }
 
     handleChange(val) {
-        if (val === '') {
+        console.log(val);
+        if (val == 0) {
             this.setFilteredData(this.data);
         } else {
             const filteredData = this.data.filter(item => {

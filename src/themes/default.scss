@@ -1,37 +1,81 @@
-.tablix {
-  
-  // Define theme variables
-  $light-background: #ffffff; // Daha açık bir arka plan
-  $light-text: #333333;
-  $dark-background: #1a1a1a; // Koyu arka plan
-  $dark-text: #eaeaea;
+/* width */
+::-webkit-scrollbar {
+  width: 10px;
+}
 
-  $primary-color: #007bff; // Temel mavi renk
-  $border-color-light: #ddd; // Açık kenar rengi
-  $border-color-dark: #444; // Koyu kenar rengi
-  $hover-background-light: #f8f9fa; // Açık hover arka plan
-  $hover-background-dark: #444; // Koyu hover arka plan
+/* Track */
+::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: #888;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: #555;
+}
+
+
+.tablix {
+
+  max-height: 80vh;
+  overflow-y: scroll;
+  // Define theme variables
+  $primary-color: linear-gradient(135deg, #4a90e2, #7b6cff);
+
+  // Light
+  $light-background: #ffffff;
+  $light-text: #333333; 
+  $border-color-light: #dcdcdc;
+  $hover-background-light: #f0f0f0; 
+  // Light
+
+  //Dark
+  $dark-background: #2c2c2c;
+  $dark-text: #eaeaea; 
+  $border-color-dark: #444; 
+  $hover-background-dark: #333;
+  //Dark
+
+  //Blue
+  $blue-background:#252253bd;
+  $blue-text:#eaeaea;
+  $border-color-blue: #9589ff; 
+  $hover-background-blue: #493b6e6c;
+  //Blue
+
+  //Red
+  $red-background:#a30b00e7;
+  $red-text:#eaeaea;
+  $border-color-red: #db22154f; 
+  $hover-background-red: #db22154f;
+  //Red
+
 
   // Mixin for shared input styles
   @mixin input-styles($background, $text-color, $border-color) {
-    min-height: 32px; // Küçültülmüş yükseklik
-    padding: 8px 12px; // Küçültülmüş padding
+    min-height: 40px; // Küçük yükseklik
+    padding: 8px 12px; // Küçük iç boşluk
     background-color: $background;
     color: $text-color;
     border: 1px solid $border-color;
-    border-radius: 4px; // Daha az yuvarlak
-    font-size: 14px; // Daha küçük font boyutu
+    border-radius: 20px; // Daha yuvarlak
+    font-size: 14px; // Küçük yazı boyutu
     cursor: pointer;
-    transition: border-color 0.2s;
+    transition: all 0.3s ease; // Akıcı geçiş
 
     &:hover {
-      background-color: lighten($background, 5%); // Hover efekti
+      opacity: 0.9;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); // Daha hafif gölge
     }
 
     &:focus {
       outline: none;
-      border-color: $primary-color; // Fokusta mavi kenar
-      box-shadow: 0 0 5px rgba($primary-color, 0.5); // Glow efekti
+      border-color: $primary-color;
+      box-shadow: 0 0 5px $primary-color; // Işık efekti
     }
   }
 
@@ -39,10 +83,10 @@
   @mixin select-box-styles($background, $text-color, $border-color) {
     @include input-styles($background, $text-color, $border-color);
     appearance: none; // Varsayılan select stilini kaldır
-    background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-chevron-down" viewBox="0 0 16 16"><path fill-rule="evenodd" d="M1.5 5.5a.5.5 0 0 1 .854-.354L8 9.293l5.646-4.146a.5.5 0 1 1 .708.708l-6 4.5a.5.5 0 0 1-.708 0l-6-4.5z"/></svg>');
+    background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-chevron-down" viewBox="0 0 16 16"><path fill-rule="evenodd" d="M1.5 5.5a.5.5 0 0 1 .854-.354L8 9.293l5.646-4.146a.5.5 0 1 1 .708.708l-6 4.5a.5.5 0 0 1-.708 0l-6-4.5z"/></svg>'); // Özel dropdown ok
     background-repeat: no-repeat;
-    background-position: right 10px center; // Ok simgesinin konumu
-    padding-right: 40px; // Ok simgesi için boşluk
+    background-position: right 10px center; // Okun konumlandırılması
+    padding-right: 30px; // Ok için alan
   }
 
   // Mixin for dark/light theme styles
@@ -54,38 +98,38 @@
     .tx-top {
       display: flex; 
       justify-content: space-between; 
-      padding: 10px; // Daha az padding
-      border-bottom: 1px solid $border-color;
+      padding: 15px;
 
       .tx-filter select {
         @include select-box-styles($background, $text-color, $border-color);
-        width: 180px; // Genişliği ayarlama
+        width: 200px; // Belirli bir genişlik
       }
 
       .tx-search .tx-search-input {
         @include input-styles($background, $text-color, $border-color);
-        width: 180px; // Genişliği ayarlama
+        width: 200px; // Belirli bir genişlik
       }
     }
 
     .tx-table-wrapper {
+
+      
+
       .tx-table {
         border: 1px solid $border-color;
-        border-radius: 4px; // Daha az yuvarlak
-        overflow: hidden; // Köşeleri düzgün tut
+        border-radius: 10px; // Yuvarlatılmış köşe
+        overflow: hidden; // Köşelerin düzgün kalması
 
         th,
         td {
-          border-bottom: 1px solid $border-color;
-          padding: 10px; // Daha az padding
+          padding: 12px; // İç boşluk
           text-align: left; // Soldan hizalama
         }
 
         tr {
           transition: background-color 0.3s ease;
-
           &:hover {
-            background-color: $hover-bg; // Hover efekti
+            background-color: $hover-bg;
           }
         }
       }
@@ -96,14 +140,17 @@
         display: flex;
         justify-content: space-between;
         align-items: center;
-        padding: 10px;
+        padding: 15px;
 
-        .txt-length-select,
-        button,
-        select {
-          @include input-styles($primary-color, white, $border-color); // Buton metin rengi beyaz
-          margin: 5px; // Boşluk ekleme
+        .tx-length-select,
+        button, select {
+          @include input-styles($primary-color, black, $border-color); // Buton metin rengi
+          margin: 5px; // Alan için margin
         }
+
+        button.active {
+          @include input-styles($border-color, black, $border-color); // Aktif buton
+        }        
       }
     }
   }
@@ -112,9 +159,23 @@
   &.light-theme {
     @include theme($light-background, $light-text, $border-color-light, $hover-background-light);
   }
+  // Light theme
+  &.default-theme {
+    @include theme($light-background, $light-text, $border-color-light, $hover-background-light);
+  }
 
   // Dark theme
   &.dark-theme {
     @include theme($dark-background, $dark-text, $border-color-dark, $hover-background-dark);
+  }
+
+  // Blue theme
+  &.blue-theme{
+    @include theme($blue-background, $blue-text, $border-color-blue, $hover-background-blue);
+  }
+
+  // Red theme
+  &.red-theme{
+    @include theme($red-background, $red-text, $border-color-red, $hover-background-red);
   }
 }
