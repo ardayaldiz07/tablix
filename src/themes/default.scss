@@ -122,6 +122,7 @@
 
       .tx-search .tx-search-input {
         @include input-styles($background, $text-color, $border-color);
+
         width: 200px; // Belirli bir genişlik
         border-radius: 10px;
       }
@@ -134,10 +135,16 @@
         border-radius: 10px; // Yuvarlatılmış köşe
         overflow: hidden; // Köşelerin düzgün kalması
 
-        th,
+        th{
+          span{
+            margin-left: 10px;
+          }
+        }
         td {
           padding: 12px; // İç boşluk
           text-align: left; // Soldan hizalama
+
+
         }
 
         tr {
@@ -148,29 +155,42 @@
         }
       }
     }
-
+    
     .tx-bottom {
+
+
+      justify-content: space-between; // Alanı eşit şekilde dağıt
+      align-items: center; // Dikey ortalama
+      padding: 15px;
+    
       .tx-pagination {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
+        display: flex; // Flexbox ile yan yana yerleştir
+        justify-content: flex-end; // Sağ tarafta hizalama
+        align-items: center; // Dikey ortalama
         padding: 15px;
 
+
+    
         .tx-length-select,
         button, select {
           @include input-styles($primary-color, black, $border-color); // Buton metin rengi
           margin: 5px; // Alan için margin
-          
         }
+    
         button.active {
-          @include input-styles($border-color, black, $border-color); // Aktif buton
+          @include input-styles($border-color, white, $border-color); // Aktif buton
         }
-        
-        .tx-page-number{
+    
+        .tx-page-number {
           width: 40px;
+        }
+
+        .tx-navigate-buttons{
+          display: flex;
         }
       }
     }
+    
   }
 
   // Light theme

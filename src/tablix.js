@@ -35,6 +35,10 @@ export default class Tablix {
         this.dataPathBase = Object.assign([], this.options.data);
         this.formattedData = Object.assign([], this.options.data);
 
+        //SORT
+        this.sortedColumn = null; // Sıralanan sütun bilgisi
+        this.sortOrder = null;    // Sıralama yönü
+
 
 
         this.init();
@@ -48,6 +52,28 @@ export default class Tablix {
         this.dataPathBase = dataByPath(this.options.apiBasePath, data);
         this.formattedData = this.dataPathBase;
     }
+
+    sortData(columnKey, sortOrder) {
+        this.sortedColumn = columnKey;
+        this.sortOrder = sortOrder;
+    
+        this.formattedData.sort((a, b) => {
+            let aValue = a[columnKey];
+            let bValue = b[columnKey];
+    
+            if (typeof aValue === 'string') {
+                aValue = aValue.toLowerCase();
+                bValue = bValue.toLowerCase();
+            }
+    
+            if (aValue < bValue) return sortOrder === 'asc' ? -1 : 1;
+            if (aValue > bValue) return sortOrder === 'asc' ? 1 : -1;
+            return 0;
+        });
+    
+        this.reInit();  // Tabloyu yeniden render et
+    }
+    
 
     renderTable() {
         let useData = this.formattedData;
@@ -64,7 +90,14 @@ export default class Tablix {
 
 
         const table = TABLE();
-        const thead = new TableHeader(this.options.columns, this.options).render();
+        const thead = new TableHeader(this.options.columns, {
+            ...this.options,
+            sortedColumn: this.sortedColumn, // Mevcut sıralanan sütun
+            sortOrder: this.sortOrder,       // Mevcut sıralama yönü
+            onSort: (columnKey, sortOrder) => {
+                this.sortData(columnKey, sortOrder);  // Sıralama fonksiyonunu çalıştır
+            }
+        }).render();
         const tbody = new TableBody(this.options.columns, this.options, useData).render();
 
         table.appendChild(thead);
@@ -164,6 +197,7 @@ export default class Tablix {
 
         //Style
         const link = document.createElement('link');
+        this.container.classList.add(this.options.theme)
         link.rel='stylesheet';
         link.href='./output/default-theme.min.css';
 
