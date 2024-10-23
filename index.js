@@ -1,1 +1,1 @@
-import Tablix from './src/tablix.js';
+export { default as Tablix, default } from './src/tablix.js';
