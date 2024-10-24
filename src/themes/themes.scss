@@ -1,7 +1,5 @@
 .tablix {
   
-  // max-height: 80vh;
-  // overflow-y: scroll;
   // Define theme variables
   $primary-color: linear-gradient(135deg, #4a90e2, #7b6cff);
 
@@ -10,75 +8,44 @@
   $light-text: #333333; 
   $border-color-light: #dcdcdc;
   $hover-background-light: #919191; 
-  // Light
 
-  //Dark
+  // Dark
   $dark-background: #2c2c2c;
   $dark-text: #eaeaea; 
   $border-color-dark: #7e7d7d; 
   $hover-background-dark: #bbbbbb71;
-  //Dark
-
-  //Blue
-  $blue-background:#252253bd;
-  $blue-text:#eaeaea;
-  $border-color-blue: #252253bd; 
-  $hover-background-blue: #252253bd;
-  //Blue 
-
-  //Red
-  $red-background:#a30b00e7;
-  $red-text:#eaeaea;
-  $border-color-red: #a30b00e7; 
-  $hover-background-red: #a30b00e7;
-  //Red
-
-  //Green
-  $green-background:#1fb911e7;
-  $green-text:#eaeaea;
-  $border-color-green: #1fb911e7; 
-  $hover-background-green: #1fb911e7;
-  //Green
-
-  //Orange
-  $orange-background:#df8600e7;
-  $orange-text:#eaeaea;
-  $border-color-orange: #df8600e7; 
-  $hover-background-orange: #df8600e7;
-  //Orange
-
 
   // Mixin for shared input styles
   @mixin input-styles($background, $text-color, $border-color) {
-    min-height: 20px; // Küçük yükseklik
-    padding: 8px 12px; // Küçük iç boşluk
+    min-height: 20px;
+    padding: 8px 12px;
     background-color: $background;
     color: $text-color;
     border: 1px solid $border-color;
-    font-size: 12px; // Küçük yazı boyutu
+    font-size: 12px;
     cursor: pointer;
-    transition: all 0.3s ease; // Akıcı geçiş
+    transition: all 0.3s ease;
 
     &:hover {
       opacity: 0.9;
-      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); // Daha hafif gölge
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
     }
 
     &:focus {
       outline: none;
       border-color: $primary-color;
-      box-shadow: 0 0 5px $primary-color; // Işık efekti
+      box-shadow: 0 0 5px $primary-color;
     }
   }
 
   // Mixin for select box styles
   @mixin select-box-styles($background, $text-color, $border-color) {
     @include input-styles($background, $text-color, $border-color);
-    appearance: none; // Varsayılan select stilini kaldır
-    background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-chevron-down" viewBox="0 0 16 16"><path fill-rule="evenodd" d="M1.5 5.5a.5.5 0 0 1 .854-.354L8 9.293l5.646-4.146a.5.5 0 1 1 .708.708l-6 4.5a.5.5 0 0 1-.708 0l-6-4.5z"/></svg>'); // Özel dropdown ok
+    appearance: none;
+    background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-chevron-down" viewBox="0 0 16 16"><path fill-rule="evenodd" d="M1.5 5.5a.5.5 0 0 1 .854-.354L8 9.293l5.646-4.146a.5.5 0 1 1 .708.708l-6 4.5a.5.5 0 0 1-.708 0l-6-4.5z"/></svg>');
     background-repeat: no-repeat;
-    background-position: right 10px center; // Okun konumlandırılması
-    padding-right: 30px; // Ok için alan
+    background-position: right 10px center;
+    padding-right: 30px;
   }
 
   // Mixin for dark/light theme styles
@@ -94,32 +61,31 @@
 
       .tx-filter select {
         @include select-box-styles($background, $text-color, $border-color);
-        width: 150px; // Belirli bir genişlik
+        width: 150px;
       }
 
       .tx-search .tx-search-input {
         @include input-styles($background, $text-color, $border-color);
-
-        width: 200px; // Belirli bir genişlik
+        width: 200px;
       }
     }
+
     .tx-table-wrapper {
       padding: 10px;
-      .tx-table {
-        
-        border: 1px solid $border-color;
-        overflow: hidden; // Köşelerin düzgün kalması
 
-        th{
-          span{
+      .tx-table {
+        border: 1px solid $border-color;
+        overflow: hidden;
+
+        th {
+          span {
             margin-left: 10px;
           }
         }
+
         td {
-          padding: 12px; // İç boşluk
-          text-align: left; // Soldan hizalama
-
-
+          padding: 12px;
+          text-align: left;
         }
 
         tr {
@@ -130,50 +96,41 @@
         }
       }
     }
-    
+
     .tx-bottom {
-
-
-      justify-content: space-between; // Alanı eşit şekilde dağıt
-      align-items: center; // Dikey ortalama
+      justify-content: space-between;
+      align-items: center;
       padding: 15px;
-    
+
       .tx-pagination {
-        display: flex; // Flexbox ile yan yana yerleştir
-        justify-content: flex-end; // Sağ tarafta hizalama
-        align-items: center; // Dikey ortalama
+        display: flex;
+        justify-content: flex-end;
+        align-items: center;
         padding: 15px;
 
-
-    
         .tx-length-select,
         button, select {
-          @include input-styles($primary-color, black, $border-color); // Buton metin rengi
-          margin: 5px; // Alan için margin
+          @include input-styles($primary-color, black, $border-color);
+          margin: 5px;
         }
-    
+
         button.active {
-          @include input-styles($border-color, white, $border-color); // Aktif buton
+          @include input-styles($border-color, white, $border-color);
         }
-    
+
         .tx-page-number {
           width: 40px;
         }
 
-        .tx-navigate-buttons{
+        .tx-navigate-buttons {
           display: flex;
         }
       }
     }
-    
   }
 
   // Light theme
   &.light-theme {
-    @include theme($light-background, $light-text, $border-color-light, $hover-background-light);
-  }
-  // Light theme
-  &.default-theme {
     @include theme($light-background, $light-text, $border-color-light, $hover-background-light);
   }
 
@@ -181,60 +138,36 @@
   &.dark-theme {
     @include theme($dark-background, $dark-text, $border-color-dark, $hover-background-dark);
   }
-
-  // Blue theme
-  &.blue-theme{
-    @include theme($blue-background, $blue-text, $border-color-blue, $hover-background-blue);
-  }
-
-  // Red theme
-  &.red-theme{
-    @include theme($red-background, $red-text, $border-color-red, $hover-background-red);
-  }
-
-  // Green theme
-  &.green-theme{
-    @include theme($green-background, $green-text, $border-color-green, $hover-background-green);
-  }
-
-  // Green theme
-  &.orange-theme{
-    @include theme($orange-background, $orange-text, $border-color-orange, $hover-background-orange);
-  }
 }
 
 // Mixin for shared button styles
 @mixin button-styles($background, $text-color, $border-color) {
-  min-height: 40px; // Yükseklik
-  padding: 10px 20px; // İç boşluk
+  min-height: 40px;
+  padding: 10px 20px;
   background-color: $background;
   color: $text-color;
   border: 2px solid $border-color;
-  border-radius: 25px; // Daha yuvarlak
-  font-size: 16px; // Yazı boyutu
-  font-weight: bold; // Kalın yazı
+  border-radius: 25px;
+  font-size: 16px;
+  font-weight: bold;
   cursor: pointer;
-  transition: all 0.3s ease; // Akıcı geçiş
+  transition: all 0.3s ease;
 
-  // Gölgelendirme
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
   
   &:hover {
     opacity: 0.9;
-    box-shadow: 0 6px 10px rgba(0, 0, 0, 0.2); // Hover sırasında daha belirgin gölge
+    box-shadow: 0 6px 10px rgba(0, 0, 0, 0.2);
   }
 
   &:focus {
     outline: none;
     border-color: $primary-color;
-    box-shadow: 0 0 5px $primary-color; // Işık efekti
+    box-shadow: 0 0 5px $primary-color;
   }
 
-  // Active state
   &:active {
-    background-color: darken($background, 5%); // Tıklama sırasında arka plan rengi
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2); // Tıklandığında daha az gölge
+    background-color: darken($background, 5%);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
   }
 }
-
-

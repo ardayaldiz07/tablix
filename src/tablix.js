@@ -135,6 +135,7 @@ export default class Tablix {
                 }
                 if(this.pagination){
                     this.pagination.render();
+                    
                 }
                 this.reInit();
             }
@@ -148,6 +149,10 @@ export default class Tablix {
                 this.formattedData = data;
                 if (this.searchPlugin) {
                     this.searchPlugin.clear();
+                }
+                if(this.pagination){
+                    this.pagination.render();
+                    
                 }
                 this.reInit();
             }
