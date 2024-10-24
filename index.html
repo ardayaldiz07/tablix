@@ -14,7 +14,6 @@
     <script src="/output/tablix.min.js"></script>
     <script>
        var tablix = new Tablix("#table", {
-        //  light dark orange blue red green
             theme: 'dark-theme',
             api: '/data.json',
             apiBasePath: 'body.content.items',
@@ -31,8 +30,7 @@
             columns: [
                 { field: 'newsId', text: 'ID', sort: true},
                 { field: 'title', text: 'Başlık', sort: true },
-                // { field: 'category', text: 'Kategori Düzgün', sort: true },
-                { field: 'category.items', sort: false, text: 'Kategori', splitField: 'name', splitBy: '>' },
+                { field: 'category.items', sort: false, text: 'Kategori', splitField: 'name', splitBy: '-' },
                 { field: 'spot', text: 'Spot', sort: true }
             ],
 
