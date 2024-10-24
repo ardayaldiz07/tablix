@@ -160,6 +160,12 @@ export default class Pagination {
             if (this.currentPage < this.paginatedData.totalPages - 1) {
                 this.currentPage++;
                 this.callback(this.currentPage, this.selectedLength, true);
+
+                if(this.nav.numbers){
+                    this.nav.numbers.innerHTML = "";
+                    this.nav.numbers.appendChild(this.renderPageNumbers(true));
+                }
+
             }
         });
 
@@ -175,6 +181,11 @@ export default class Pagination {
             if (this.currentPage > 0) {
                 this.currentPage--;
                 this.callback(this.currentPage, this.selectedLength, true);
+
+                if(this.nav.numbers){
+                    this.nav.numbers.innerHTML = "";
+                    this.nav.numbers.appendChild(this.renderPageNumbers(true));
+                }
             }
         });
         return prevButton;

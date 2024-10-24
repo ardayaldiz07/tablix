@@ -1,24 +1,3 @@
-/* width */
-::-webkit-scrollbar {
-  width: 10px;
-}
-
-/* Track */
-::-webkit-scrollbar-track {
-  background: #f1f1f1;
-}
-
-/* Handle */
-::-webkit-scrollbar-thumb {
-  background: #888;
-}
-
-/* Handle on hover */
-::-webkit-scrollbar-thumb:hover {
-  background: #555;
-}
-
-
 .tablix {
   
   // max-height: 80vh;
@@ -27,17 +6,17 @@
   $primary-color: linear-gradient(135deg, #4a90e2, #7b6cff);
 
   // Light
-  $light-background: #c9c9c9;
+  $light-background: #e0e0e0;
   $light-text: #333333; 
   $border-color-light: #dcdcdc;
-  $hover-background-light: #f0f0f0; 
+  $hover-background-light: #919191; 
   // Light
 
   //Dark
   $dark-background: #2c2c2c;
   $dark-text: #eaeaea; 
-  $border-color-dark: #2c2c2c; 
-  $hover-background-dark: #e4d3d371;
+  $border-color-dark: #7e7d7d; 
+  $hover-background-dark: #bbbbbb71;
   //Dark
 
   //Blue
@@ -45,7 +24,7 @@
   $blue-text:#eaeaea;
   $border-color-blue: #252253bd; 
   $hover-background-blue: #252253bd;
-  //Blue
+  //Blue 
 
   //Red
   $red-background:#a30b00e7;
@@ -76,8 +55,7 @@
     background-color: $background;
     color: $text-color;
     border: 1px solid $border-color;
-    border-radius: 20px; // Daha yuvarlak
-    font-size: 14px; // Küçük yazı boyutu
+    font-size: 12px; // Küçük yazı boyutu
     cursor: pointer;
     transition: all 0.3s ease; // Akıcı geçiş
 
@@ -117,22 +95,19 @@
       .tx-filter select {
         @include select-box-styles($background, $text-color, $border-color);
         width: 150px; // Belirli bir genişlik
-        border-radius: 10px;
       }
 
       .tx-search .tx-search-input {
         @include input-styles($background, $text-color, $border-color);
 
         width: 200px; // Belirli bir genişlik
-        border-radius: 10px;
       }
     }
-    border-radius: 10px;
     .tx-table-wrapper {
+      padding: 10px;
       .tx-table {
         
         border: 1px solid $border-color;
-        border-radius: 10px; // Yuvarlatılmış köşe
         overflow: hidden; // Köşelerin düzgün kalması
 
         th{

@@ -15,7 +15,7 @@ module.exports = (env, argv) => {
         mode: argv.mode != 'production' ? 'development' : 'production',
         entry: {
             "tablix": ['./src/tablix-initJS.js'],
-            "default-theme": ['./src/themes/default.scss']
+            "default-theme": ['./src/themes/themes.scss']
         },
         output: {
             path: path.resolve(__dirname, 'output'),
