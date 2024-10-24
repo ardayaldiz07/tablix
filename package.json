@@ -8,6 +8,10 @@
     "build": "webpack --mode production",
     "start": "webpack serve --open"
   },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ardayaldiz07/tablix.git"
+  },
   "author": "Arda Yaldız <ardayaldiz07@gmail.com>",
   "license": "MIT",
   "main": "index.js",
