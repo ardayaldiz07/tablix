@@ -1,6 +1,6 @@
 {
   "name": "tablix",
-  "version": "0.0.4",
+  "version": "0.0.5",
   "description": "Pure Javascript tablixJS",
   "scripts": {
     "watch": "webpack --progress --color --watch",
