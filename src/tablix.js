@@ -108,15 +108,16 @@ export default class Tablix {
 
         this.tableWrapper.innerHTML = "";
         if(this.formattedData.length != 0){
-            
             table.appendChild(thead);
             table.appendChild(tbody);
             this.tableWrapper.appendChild(table);
+            this.pagination.render();
         }else{
             const dataNotFound = document.createElement('h1');
             dataNotFound.innerText = "Data not found";
             dataNotFound.style.textAlign="center";
             this.tableWrapper.appendChild(dataNotFound);
+            this.pagination.render();
         }
 
     }
