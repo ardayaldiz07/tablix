@@ -76,9 +76,9 @@ export default function TablixWrapper({ theme, data }) {
 And add this code to wherever you want.
 ```js
 <TablixWrapper
-theme={'dark-theme'}
-data={{
-    api: '/data.json',
-}}
+    theme={'dark-theme'}
+    data={{
+        api: '/data.json',
+    }}
 />
 ```
