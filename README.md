@@ -1,8 +1,7 @@
 # TablixJS
 
   
-
-# Kurulum
+# İnstallation
 - npm install
 
 - production : npm run build
@@ -11,7 +10,7 @@
 
 - watch : npm run watch
 
-## Geliştirici
+## Dev
 >Arda Yaldız
 
 ## Usage for NextJS
