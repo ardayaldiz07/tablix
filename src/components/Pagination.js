@@ -15,9 +15,11 @@ export default class Pagination {
 
 
     handleChange(index) {
-        this.selectedLength = index;
-        this.callback(0, this.selectedLength, true);
         
+        this.selectedLength = index;
+        
+        this.callback(0, this.selectedLength, true);
+        console.log(this.selectedLength);
         if(this.nav.numbers){
             this.nav.numbers.innerHTML = "";
             this.nav.numbers.appendChild(this.renderPageNumbers(true));
@@ -42,7 +44,7 @@ export default class Pagination {
                 const option = document.createElement('option');
                 option.value = item.value;
                 option.text = item.text;
-                option.selected = item.selected || false;
+                option.selected = item.selected ?? false;
 
                 if (item.selected) {
                     this.selectedLength = item.value;
@@ -305,10 +307,10 @@ export default class Pagination {
         this.paginationWrapper.className = "tx-pagination";
        
         const renderButtons = this.renderButtons();
+
         const lengthFilter = this.lengthFilter();
 
         // const selectBox = this.renderSelectbox();
-
         if (lengthFilter) {
             this.paginationWrapper.appendChild(lengthFilter);
         }
