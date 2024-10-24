@@ -65,9 +65,12 @@ export default class Tablix {
                 aValue = aValue.toLowerCase();
                 bValue = bValue.toLowerCase();
             }
-    
+            
             if (aValue < bValue) return sortOrder === 'asc' ? -1 : 1;
             if (aValue > bValue) return sortOrder === 'asc' ? 1 : -1;
+
+            
+            
             return 0;
         });
     
@@ -76,6 +79,9 @@ export default class Tablix {
     
 
     renderTable() {
+        if(this.formattedData.length == 0){
+            return;
+        }
         let useData = this.formattedData;
 
         if (this.pagination) {
@@ -92,10 +98,10 @@ export default class Tablix {
         const table = TABLE();
         const thead = new TableHeader(this.options.columns, {
             ...this.options,
-            sortedColumn: this.sortedColumn, // Mevcut sıralanan sütun
-            sortOrder: this.sortOrder,       // Mevcut sıralama yönü
+            sortedColumn: this.sortedColumn, 
+            sortOrder: this.sortOrder,       
             onSort: (columnKey, sortOrder) => {
-                this.sortData(columnKey, sortOrder);  // Sıralama fonksiyonunu çalıştır
+                this.sortData(columnKey, sortOrder); 
             }
         }).render();
         const tbody = new TableBody(this.options.columns, this.options, useData).render();
@@ -134,8 +140,8 @@ export default class Tablix {
                     this.filter.clear();
                 }
                 if(this.pagination){
+                    this.pagination.setCurrentPage();
                     this.pagination.render();
-                    
                 }
                 this.reInit();
             }
@@ -151,8 +157,8 @@ export default class Tablix {
                     this.searchPlugin.clear();
                 }
                 if(this.pagination){
+                    this.pagination.setCurrentPage();
                     this.pagination.render();
-                    
                 }
                 this.reInit();
             }
@@ -238,7 +244,7 @@ export default class Tablix {
             await this.fetchData();
         }
 
-        // //HTML TEMPLATE
+        //HTML TEMPLATE
         this.htmlTemplate();
 
         this.pluginSet();

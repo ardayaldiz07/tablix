@@ -11,6 +11,8 @@ export default class Pagination {
 
         this.setPaginateList();
     }
+    
+
 
     handleChange(index) {
         this.selectedLength = index;
@@ -75,7 +77,11 @@ export default class Pagination {
 
         if(this.currentPage > 1){
             const startButton = this.startButton("1");
+            const point = document.createElement('span');
+            point.innerText=' . . . ';
+            
             buttonContainer.appendChild(startButton);
+            buttonContainer.appendChild(point);
         }
 
         const goLeft = document.createElement('button');
@@ -94,7 +100,7 @@ export default class Pagination {
             }
         });
 
-        for (let i = startPage; i <= endPage; i++) {
+        for (let i =  this.currentPage == totalPages-1 ? startPage-1 : startPage ; i <= endPage; i++) {
          
             const pageButton = document.createElement('button');
             pageButton.style.margin = '5px';
@@ -133,7 +139,7 @@ export default class Pagination {
         });
 
 
-        if(this.currentPage < totalPages-2){
+        if(this.currentPage < totalPages-3){
             const point = document.createElement('span');
             point.innerText=' . . . ';
             buttonContainer.appendChild(point);
@@ -211,6 +217,10 @@ export default class Pagination {
             }
         });
         return selectBox;
+    }
+    setCurrentPage(){
+        this.currentPage=0;
+        this.callback(this.currentPage, this.selectedLength, true);
     }
 
     startButton(text) {
@@ -300,6 +310,12 @@ export default class Pagination {
         if (lengthFilter) {
             this.paginationWrapper.appendChild(lengthFilter);
         }
+
+        if(this.nav.numbers){
+            this.nav.numbers.innerHTML = "";
+            this.nav.numbers.appendChild(this.renderPageNumbers(true));
+        }
+
         this.paginationWrapper.appendChild(renderButtons);
         // this.paginationWrapper.appendChild(selectBox);
 

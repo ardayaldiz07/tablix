@@ -1,27 +1,34 @@
 .tablix {
-  
   // Define theme variables
   $primary-color: linear-gradient(135deg, #4a90e2, #7b6cff);
 
-  // Light
-  $light-background: #e0e0e0;
-  $light-text: #333333; 
-  $border-color-light: #dcdcdc;
-  $hover-background-light: #919191; 
+  // Light and Dark themes
+  $themes: (
+    light: (
+      background: #bbbbbb,
+      text: #333333,
+      border: #dcdcdc,
+      hover-bg: #919191
+    ),
+    dark: (
+      background: #2c2c2c,
+      text: #eaeaea,
+      border: #7e7d7d,
+      hover-bg: #bbbbbb71
+    )
+  );
 
-  // Dark
-  $dark-background: #2c2c2c;
-  $dark-text: #eaeaea; 
-  $border-color-dark: #7e7d7d; 
-  $hover-background-dark: #bbbbbb71;
-
-  // Mixin for shared input styles
-  @mixin input-styles($background, $text-color, $border-color) {
-    min-height: 20px;
-    padding: 8px 12px;
+  // Mixin for shared styles
+  @mixin common-styles($background, $text-color, $border-color) {
     background-color: $background;
     color: $text-color;
     border: 1px solid $border-color;
+  }
+
+  @mixin input-styles($background, $text-color, $border-color) {
+    @include common-styles($background, $text-color, $border-color);
+    min-height: 20px;
+    padding: 8px 12px;
     font-size: 12px;
     cursor: pointer;
     transition: all 0.3s ease;
@@ -38,21 +45,17 @@
     }
   }
 
-  // Mixin for select box styles
   @mixin select-box-styles($background, $text-color, $border-color) {
     @include input-styles($background, $text-color, $border-color);
-    appearance: none;
-    background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-chevron-down" viewBox="0 0 16 16"><path fill-rule="evenodd" d="M1.5 5.5a.5.5 0 0 1 .854-.354L8 9.293l5.646-4.146a.5.5 0 1 1 .708.708l-6 4.5a.5.5 0 0 1-.708 0l-6-4.5z"/></svg>');
-    background-repeat: no-repeat;
-    background-position: right 10px center;
-    padding-right: 30px;
   }
 
-  // Mixin for dark/light theme styles
-  @mixin theme($background, $text-color, $border-color, $hover-bg) {
-    background-color: $background;
-    color: $text-color;
-    border-color: $border-color;
+  @mixin theme($theme) {
+    $background: map-get($theme, background);
+    $text-color: map-get($theme, text);
+    $border-color: map-get($theme, border);
+    $hover-bg: map-get($theme, hover-bg);
+
+    @include common-styles($background, $text-color, $border-color);
 
     .tx-top {
       display: flex; 
@@ -78,18 +81,19 @@
         overflow: hidden;
 
         th {
-          span {
-            margin-left: 10px;
-          }
+          border:1px solid $border-color;
+          span { margin-left: 10px; }
         }
 
         td {
           padding: 12px;
           text-align: left;
+          border: 1px solid $border-color;
         }
 
         tr {
           transition: background-color 0.3s ease;
+
           &:hover {
             background-color: $hover-bg;
           }
@@ -106,16 +110,17 @@
         display: flex;
         justify-content: flex-end;
         align-items: center;
-        padding: 15px;
 
         .tx-length-select,
-        button, select {
-          @include input-styles($primary-color, black, $border-color);
+        button,
+        select {
+          @include input-styles(darken($background, 5%), white, $border-color);
           margin: 5px;
         }
 
         button.active {
           @include input-styles($border-color, white, $border-color);
+          border-color: white;
         }
 
         .tx-page-number {
@@ -129,45 +134,7 @@
     }
   }
 
-  // Light theme
-  &.light-theme {
-    @include theme($light-background, $light-text, $border-color-light, $hover-background-light);
-  }
-
-  // Dark theme
-  &.dark-theme {
-    @include theme($dark-background, $dark-text, $border-color-dark, $hover-background-dark);
-  }
-}
-
-// Mixin for shared button styles
-@mixin button-styles($background, $text-color, $border-color) {
-  min-height: 40px;
-  padding: 10px 20px;
-  background-color: $background;
-  color: $text-color;
-  border: 2px solid $border-color;
-  border-radius: 25px;
-  font-size: 16px;
-  font-weight: bold;
-  cursor: pointer;
-  transition: all 0.3s ease;
-
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-  
-  &:hover {
-    opacity: 0.9;
-    box-shadow: 0 6px 10px rgba(0, 0, 0, 0.2);
-  }
-
-  &:focus {
-    outline: none;
-    border-color: $primary-color;
-    box-shadow: 0 0 5px $primary-color;
-  }
-
-  &:active {
-    background-color: darken($background, 5%);
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
-  }
+  // Light and Dark themes
+  &.light-theme { @include theme(map-get($themes, light)); }
+  &.dark-theme { @include theme(map-get($themes, dark)); }
 }
