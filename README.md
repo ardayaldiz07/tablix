@@ -2,13 +2,7 @@
 
   
 # İnstallation
-- npm install
-
-- production : npm run build
-
-- development : npm run dev
-
-- watch : npm run watch
+- npm i tablix
 
 ## Dev
 >Arda Yaldız
