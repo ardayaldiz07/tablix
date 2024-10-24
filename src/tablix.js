@@ -199,7 +199,7 @@ export default class Tablix {
         const link = document.createElement('link');
         this.container.classList.add(this.options.theme)
         link.rel='stylesheet';
-        link.href='./output/default-theme.min.css';
+        link.href='./output/theme.min.css';
 
         document.head.appendChild(link);
     }

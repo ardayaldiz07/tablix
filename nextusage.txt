@@ -1,6 +1,19 @@
+// Tablix Wrapper
+
+<TablixWrapper
+        theme={'dark-theme'}
+        data={{
+          api: '/data.json',
+        }}
+/>
+
+
+
+// Tablix Component
+
 import Tablix from "tablix";
 import React, { useEffect } from "react";
-import '../../node_modules/tablix/output/default-theme.min.css';
+import '../../node_modules/tablix/output/themes.min.css';
 
 export default function TablixWrapper({ theme, data }) {
 
