@@ -100,7 +100,7 @@ export default class Pagination {
             }
         });
 
-        for (let i =  this.currentPage == totalPages-1 ? startPage-1 : startPage ; i <= endPage; i++) {
+        for (let i =  this.currentPage == totalPages-1  ? startPage-1 : startPage ; i <= endPage; i++) {
          
             const pageButton = document.createElement('button');
             pageButton.style.margin = '5px';
@@ -121,7 +121,9 @@ export default class Pagination {
                     this.nav.numbers.appendChild(this.renderPageNumbers(true));
                 }
             });
-            buttonContainer.appendChild(pageButton);
+            if(pageButton.innerText != "0"){
+                buttonContainer.appendChild(pageButton);
+            }
         }
 
         const goRight = document.createElement('button');

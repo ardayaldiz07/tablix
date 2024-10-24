@@ -79,9 +79,6 @@ export default class Tablix {
     
 
     renderTable() {
-        if(this.formattedData.length == 0){
-            return;
-        }
         let useData = this.formattedData;
 
         if (this.pagination) {
@@ -106,11 +103,21 @@ export default class Tablix {
         }).render();
         const tbody = new TableBody(this.options.columns, this.options, useData).render();
 
-        table.appendChild(thead);
-        table.appendChild(tbody);
+        
+
 
         this.tableWrapper.innerHTML = "";
-        this.tableWrapper.appendChild(table);
+        if(this.formattedData.length != 0){
+            
+            table.appendChild(thead);
+            table.appendChild(tbody);
+            this.tableWrapper.appendChild(table);
+        }else{
+            const dataNotFound = document.createElement('h1');
+            dataNotFound.innerText = "Data not found";
+            dataNotFound.style.textAlign="center";
+            this.tableWrapper.appendChild(dataNotFound);
+        }
 
     }
 
@@ -140,7 +147,6 @@ export default class Tablix {
                     this.filter.clear();
                 }
                 if(this.pagination){
-                    this.pagination.setCurrentPage();
                     this.pagination.render();
                 }
                 this.reInit();
@@ -219,28 +225,12 @@ export default class Tablix {
         this.renderTable();
     }
 
-    // Kullanılmayacak
-    async loading(){
-        const loading = document.createElement('h1');
-        loading.innerText="Loading";
-        loading.style.textAlign='center';
-        this.container.appendChild(loading);
-        for(let i=0; i<3; i++){
-            loading.innerText+=".";
-            await new Promise(resolve => setTimeout(resolve, 150));
-        }
-        await new Promise(resolve => setTimeout(resolve, 300));
-        this.container.removeChild(loading);   
-        return;
-    }
-
     async init() {
         if (!this.container) return;
         this.container.classList.add('tablix');
         
         //DATA spec
         if (this.options.api) {            
-            //await this.loading();
             await this.fetchData();
         }
 
