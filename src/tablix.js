@@ -107,11 +107,11 @@ export default class Tablix {
 
 
         this.tableWrapper.innerHTML = "";
+
         if(this.formattedData.length != 0){
             table.appendChild(thead);
             table.appendChild(tbody);
             this.tableWrapper.appendChild(table);
-            this.pagination.render();
         }else{
             const dataNotFound = document.createElement('h1');
             dataNotFound.innerText = "Data not found";
@@ -147,9 +147,10 @@ export default class Tablix {
                 if (this.filter) {
                     this.filter.clear();
                 }
-                if(this.pagination){
-                    this.pagination.render();
-                }
+                // if(this.pagination){
+                //     this.pagination.render();
+                // }
+                // this.pagination.setCurrentPage();
                 this.reInit();
             }
         );
@@ -163,10 +164,10 @@ export default class Tablix {
                 if (this.searchPlugin) {
                     this.searchPlugin.clear();
                 }
-                if(this.pagination){
-                    this.pagination.setCurrentPage();
-                    this.pagination.render();
-                }
+                // if(this.pagination){
+                //     this.pagination.setCurrentPage();
+                //     this.pagination.render();
+                // }
                 this.reInit();
             }
         );

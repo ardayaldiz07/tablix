@@ -15,11 +15,8 @@ export default class Pagination {
 
 
     handleChange(index) {
-        
-        this.selectedLength = index;
-        
+        this.selectedLength = parseInt(index);
         this.callback(0, this.selectedLength, true);
-        console.log(this.selectedLength);
         if(this.nav.numbers){
             this.nav.numbers.innerHTML = "";
             this.nav.numbers.appendChild(this.renderPageNumbers(true));
@@ -47,7 +44,7 @@ export default class Pagination {
                 option.selected = item.selected ?? false;
 
                 if (item.selected) {
-                    this.selectedLength = item.value;
+                    this.selectedLength = parseInt(item.value);
                 }
 
                 select.appendChild(option);
@@ -288,7 +285,7 @@ export default class Pagination {
         for (let i = 0, length = this.options.pagination.length.length; i < length; i++) {
             const item = this.options.pagination.length[i];
             if (item.selected) {
-                this.selectedLength = item.value;
+                this.selectedLength = parseInt(item.value);
             }
         }
     }
