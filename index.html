@@ -14,8 +14,8 @@
     <script src="/output/tablix.min.js"></script>
     <script>
        var tablix = new Tablix("#table", {
-            theme: 'dark-theme',
             api: '/data.json',
+            theme:'dark-theme',
             apiBasePath: 'body.content.items',
             search: {
                 enabled: true,
@@ -31,11 +31,12 @@
                 { field: 'newsId', text: 'ID', sort: true},
                 { field: 'title', text: 'Title', sort: true },
                 { field: 'category.items', sort: false, text: 'Category', splitField: 'name', splitBy: '-' },
-                { field: 'spot', text: 'Description', sort: true }
+                { field: 'spot', text: 'Description', sort: false }
             ],
 
             pagination: {
                 enabled: true,
+                
                 buttons: [
                     'start', 'prev', 'numbers','selectPage', 'next', 'end'
                 ],

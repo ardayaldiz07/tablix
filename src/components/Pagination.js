@@ -100,7 +100,8 @@ export default class Pagination {
         });
 
         for (let i =  this.currentPage == totalPages-1  ? startPage-1 : startPage ; i <= endPage; i++) {
-         
+            console.log("Current Page: " +this.currentPage);
+            console.log("İ: "+i);
             const pageButton = document.createElement('button');
             pageButton.style.margin = '5px';
             pageButton.style.cursor = 'pointer';

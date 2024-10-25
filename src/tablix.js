@@ -120,6 +120,7 @@ export default class Tablix {
             this.pagination.render();
         }
 
+
     }
 
     setupPagination() {
@@ -148,13 +149,10 @@ export default class Tablix {
                     this.filter.clear();
                 }
                 if(this.pagination){
-                    if(this.formattedData.length > 0){
-                        console.log(this.pagination.currentPage);
-                        this.pagination.render();
-                    }
-                    
+                    this.pagination.setCurrentPage();    
+                    this.pagination.render();
                 }
-                // this.pagination.setCurrentPage();
+                
                 this.reInit();
             }
         );
@@ -219,11 +217,16 @@ export default class Tablix {
         //BOTTOM
 
         //Style
-        const link = document.createElement('link');
-        this.container.classList.add(this.options.theme)
-        link.rel='stylesheet';
-        link.href='./output/theme.min.css';
 
+
+        const link = document.createElement('link');
+        link.rel='stylesheet';
+
+        if(this.options.theme == "dark-theme"){
+            link.href='./output/dark-theme.min.css';
+        }else{
+            link.href='./output/light-theme.min.css';
+        }
         document.head.appendChild(link);
     }
 

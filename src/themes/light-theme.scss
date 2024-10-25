@@ -1,0 +1,143 @@
+$background-color: #f0f0f0; // Açık arka plan rengi
+$primary-color: #333; // Koyu metin rengi
+$secondary-color: #ffffff; // Beyaz için
+$accent-color: #39c250; // Açık mavi ton
+$text-color: #1a1a1a; // Koyu metin rengi
+
+.tablix {
+  overflow: hidden;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+
+  .tx-top {
+    display: flex;
+    justify-content: space-between;
+    padding: 15px;
+    background-color: $secondary-color;
+
+    .tx-filter, .tx-search {
+      display: flex;
+      align-items: center;
+
+      select, input {
+        cursor: pointer;
+        padding: 10px;
+        margin-left: 10px;
+        border: 1px solid $accent-color; // Çerçeve rengi
+        background-color: lighten($background-color, 5%);
+        color: $text-color;
+        transition: all ease 0.3s;
+      }
+
+      select {
+        &:hover {
+          transition: ease all 0.3s;
+          box-shadow: -2px 2px 5px $accent-color;
+        }
+      }
+
+      input {
+        &:hover {
+          transition: ease all 0.3s;
+          box-shadow: 2px 2px 5px $accent-color;
+        }
+      }
+    }
+  }
+
+  .tx-table-wrapper {
+    overflow-x: auto;
+
+    .tx-table {
+      width: 100%;
+      border-collapse: collapse;
+
+      thead {
+        background-color: $secondary-color;
+        tr {
+          background-color: darken($background-color, 1%);
+        }
+        th {
+          border-bottom: 2px solid $accent-color;
+          padding: 12px;
+          text-align: left;
+          color: $primary-color;
+
+          .sort-icon {
+            margin-left: 5px;
+            cursor: pointer;
+          }
+        }
+      }
+
+      .tx-body {
+        .tx-tr {
+          transition: all ease 0.3s;
+          &:hover {
+            background-color: lighten($accent-color, 40%); // Daha açık ton
+          }
+
+          td {
+            padding: 12px;
+            border-bottom: 1px solid $secondary-color;
+            color: $text-color;
+          }
+        }
+      }
+    }
+  }
+
+  .tx-bottom {
+    padding: 15px;
+    background-color: $secondary-color;
+
+    .tx-pagination {
+      justify-content: space-between;
+      align-items: center;
+      display: flex;
+
+      .tx-length-select, .tx-selectBox {
+        text-align: center;
+        margin-left: 10px;
+        background-color: $accent-color;        
+        color: $text-color;
+        cursor: pointer;
+      }
+
+      .tx-length-select {
+        height: 30px;
+      }
+
+      .tx-selectBox {
+        background-color: lighten($accent-color, 10%);
+      }
+
+      .tx-navigate-buttons {
+        display: flex;
+      }
+
+      .tx-page-number {
+        width: 35px;
+        justify-content: center;
+        transition: all ease 0.3s;
+        &.active {
+          transition: all ease 0.3s;
+          background-color: lighten($accent-color, 15%);
+        }
+      }
+
+      button {
+        transition: all ease 0.3s;
+        padding: 8px 12px;
+        margin: 0 5px;
+        border: none;
+        background-color: $accent-color;
+        color: $primary-color;
+        cursor: pointer;
+
+        &:hover {
+          background-color: lighten($accent-color, 10%);
+        }
+      }
+    }
+  }
+}
