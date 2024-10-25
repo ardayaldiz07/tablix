@@ -1,153 +1,167 @@
-::-webkit-scrollbar{
-  display: none;
+$background-color: #1a1a1a;
+$primary-color: #f0f0f0;
+$secondary-color: #333;
+$accent-color: #113f74;
+$text-color: #e0e0e0;
+
+body {
+  font-family: Arial, sans-serif;
+  background-color: $background-color;
+  color: $text-color;
+  margin: 0;
+  padding: 20px;
 }
+
 .tablix {
-  height: 60vh;
-  overflow-y: scroll;
+  overflow: hidden;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 
-  ::-webkit-scrollbar{
-    display: none;
-  }
-  // Define theme variables
-  $primary-color: linear-gradient(135deg, #4a90e2, #7b6cff);
+  .tx-top {
+    display: flex;
+    justify-content: space-between;
+    padding: 15px;
+    background-color: $secondary-color;
 
-  // Light and Dark themes
-  $themes: (
-    light: (
-      background: #bbbbbb,
-      text: #333333,
-      border: #dcdcdc,
-      hover-bg: #919191
-    ),
-    dark: (
-      background: #2c2c2c,
-      text: #eaeaea,
-      border: #7e7d7d,
-      hover-bg: #bbbbbb71
-    )
-  );
+    .tx-filter, .tx-search {
+      display: flex;
+      align-items: center;
+      
 
-  // Mixin for shared styles
-  @mixin common-styles($background, $text-color, $border-color) {
-    background-color: $background;
-    color: $text-color;
-    border: 1px solid $border-color;
-  }
-
-  @mixin input-styles($background, $text-color, $border-color) {
-    @include common-styles($background, $text-color, $border-color);
-    min-height: 20px;
-    padding: 8px 12px;
-    font-size: 12px;
-    cursor: pointer;
-    transition: all 0.3s ease;
-
-    &:hover {
-      opacity: 0.9;
-      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-    }
-
-    &:focus {
-      outline: none;
-      border-color: $primary-color;
-      box-shadow: 0 0 5px $primary-color;
-    }
-  }
-
-  @mixin select-box-styles($background, $text-color, $border-color) {
-    @include input-styles($background, $text-color, $border-color);
-  }
-
-  @mixin theme($theme) {
-    $background: map-get($theme, background);
-    $text-color: map-get($theme, text);
-    $border-color: map-get($theme, border);
-    $hover-bg: map-get($theme, hover-bg);
-
-    @include common-styles($background, $text-color, $border-color);
-
-    .tx-top {
-      display: flex; 
-      justify-content: space-between; 
-      padding: 15px;
-
-      .tx-filter select {
-        @include select-box-styles($background, $text-color, $border-color);
-        width: 150px;
+      select, input {
+        cursor: pointer;
+        padding: 10px;
+        margin-left: 10px;
+        border: none;
+        background-color:  lighten($background-color, 8%);
+        color: $text-color;
+        transition: all ease 0.3s;
       }
 
-      .tx-search .tx-search-input {
-        @include input-styles($background, $text-color, $border-color);
-        width: 200px;
+      select{
+        &:hover{
+          transition: ease all 0.3s;
+          box-shadow: -2px 2px 5px $accent-color;
+        }
       }
+
+      input{
+        &:hover{
+          transition: ease all 0.3s;
+          box-shadow: 2px 2px 5px $accent-color;
+        }
+      }
+
+
     }
+  }
 
-    .tx-table-wrapper {
-      height: 75%;
-      overflow-y: scroll;
-      padding: 10px;
+  .tx-table-wrapper {
+    overflow-x: auto;
 
-      .tx-table {
-        overflow: hidden;
+    .tx-table {
+      width: 100%;
+      border-collapse: collapse;
 
+      thead {
+        background-color: $secondary-color;
+        tr{
+          background-color: lighten($background-color, 8%);
+        }
         th {
-          padding: 10px;
-          border:1px solid $border-color;
-          span { margin-left: 10px; }
-        }
+          border-bottom: 2px solid $accent-color;
+          // border-right: 2px solid $accent-color;
+          // border-bottom: 2px solid $accent-color;
 
-        td {
-          padding: 10px;
+
+          // border:2px solid $accent-color;
+
+          // border-left:2px solid $accent-color;
+          // border-bottom: 2px solid $accent-color;
+
+          
+          padding: 12px;
           text-align: left;
-          border: 1px solid $border-color;
-        }
+          
+          color: $primary-color;
 
-        tr {
-          transition: background-color 0.3s ease;
-
-          &:hover {
-            background-color: $hover-bg;
+          .sort-icon {
+            margin-left: 5px;
+            cursor: pointer;
           }
         }
       }
-    }
 
-    .tx-bottom {
+      .tx-body{
+        .tx-tr {
+          transition: all ease 0.3s;
+          &:hover{
+            
+            background-color: $accent-color;
+          }
+          
+          td {
+            padding: 12px;
+            border-bottom: 1px solid $secondary-color;
+            color: $text-color;
+          }
+        }
+      }
+      
+    }
+  }
+
+  .tx-bottom {
+    
+    padding: 15px;
+    background-color: $secondary-color;
+
+    .tx-pagination {
       justify-content: space-between;
       align-items: center;
-      margin-top: 5px;
-      padding-right: 6px;
+      display: flex;
+      .tx-length-select, .tx-selectBox {
+        text-align: center;
+        margin-left: 10px;
+        background-color: $accent-color;        
+        color: $text-color;
+        cursor: pointer;
+      }
 
-      .tx-pagination {
+      .tx-length-select{
+        height: 30px;
+      }
+
+      .tx-selectBox{
+        background-color: darken($accent-color,10%);
+      }
+
+      .tx-navigate-buttons{
         display: flex;
-        justify-content: flex-end;
-        align-items: center;
+      }
 
-        .tx-length-select,
-        button,
-        select {
-          @include input-styles(darken($background, 5%), white, $border-color);
-          margin: 5px;
+      .tx-page-number{
+        width: 35px;
+        justify-content: center;
+        transition: all ease 0.3s;
+        &.active{
+          transition: all ease 0.3s;
+          background-color: darken($accent-color, 10%);
         }
+      }
 
-        button.active {
-          @include input-styles($border-color, white, $border-color);
-          border-color: white;
-        }
+      button {
+        transition: all ease 0.3s;
+        padding: 8px 12px;
+        margin: 0 5px;
+        border: none;
+        background-color: $accent-color;
+        color: $primary-color;
+        cursor: pointer;
 
-        .tx-page-number {
-          width: 40px;
-        }
-
-        .tx-navigate-buttons {
-          display: flex;
+        &:hover {
+          background-color: darken($accent-color, 10%);
         }
       }
     }
   }
-  
-
-  // Light and Dark themes
-  &.light-theme { @include theme(map-get($themes, light)); }
-  &.dark-theme { @include theme(map-get($themes, dark)); }
 }

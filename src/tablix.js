@@ -147,9 +147,13 @@ export default class Tablix {
                 if (this.filter) {
                     this.filter.clear();
                 }
-                // if(this.pagination){
-                //     this.pagination.render();
-                // }
+                if(this.pagination){
+                    if(this.formattedData.length > 0){
+                        console.log(this.pagination.currentPage);
+                        this.pagination.render();
+                    }
+                    
+                }
                 // this.pagination.setCurrentPage();
                 this.reInit();
             }
@@ -164,10 +168,10 @@ export default class Tablix {
                 if (this.searchPlugin) {
                     this.searchPlugin.clear();
                 }
-                // if(this.pagination){
-                //     this.pagination.setCurrentPage();
-                //     this.pagination.render();
-                // }
+                if(this.pagination){
+                    this.pagination.setCurrentPage();
+                    this.pagination.render();
+                }
                 this.reInit();
             }
         );

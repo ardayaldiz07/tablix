@@ -249,7 +249,8 @@ export default class Pagination {
         goToEndButton.innerText = text;
 
         goToEndButton.addEventListener('click', () => {
-            this.currentPage = parseInt(this.paginatedData.totalPages - 1);
+            this.currentPage = parseInt(this.paginatedData.totalPages);
+            console.log(this.paginatedData.totalPages);
             this.callback(this.currentPage, this.selectedLength, true);
             if(this.nav.numbers){
                 this.nav.numbers.innerHTML = "";

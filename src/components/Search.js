@@ -20,12 +20,14 @@ export default class Search {
 
 
     filteredData(value) {
+        
         return this.data.filter(item => {
             return this.searchFields.some(field => {
                 const fieldValue = field.split('.').reduce((acc, curr) => acc && acc[curr], item);
                 return String(fieldValue).toLowerCase().includes(value.toLowerCase());
             });
         });
+        
     }
 
     handleInputChange(event) {
