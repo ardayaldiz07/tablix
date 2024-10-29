@@ -3,16 +3,9 @@ $primary-color: #f0f0f0;
 $secondary-color: #333;
 $accent-color: #113f74;
 $text-color: #e0e0e0;
-
-body {
-  font-family: Arial, sans-serif;
-  background-color: $background-color;
-  color: $text-color;
-  margin: 0;
-  padding: 20px;
-}
-
 .tablix {
+  background-color: $background-color;
+  color:white;
   overflow: hidden;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 
@@ -94,8 +87,8 @@ body {
       .tx-body{
         .tx-tr {
           transition: all ease 0.3s;
+          background-color: $background-color;
           &:hover{
-            
             background-color: $accent-color;
           }
           

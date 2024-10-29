@@ -100,7 +100,8 @@ export default class Pagination {
         });
 
         for (let i =  this.currentPage == totalPages-1  ? startPage-1 : startPage ; i <= endPage; i++) {
-         
+            console.log("Current Page: " +this.currentPage);
+            console.log("İ: "+i);
             const pageButton = document.createElement('button');
             pageButton.style.margin = '5px';
             pageButton.style.cursor = 'pointer';
@@ -249,7 +250,8 @@ export default class Pagination {
         goToEndButton.innerText = text;
 
         goToEndButton.addEventListener('click', () => {
-            this.currentPage = parseInt(this.paginatedData.totalPages - 1);
+            this.currentPage = parseInt(this.paginatedData.totalPages);
+            console.log(this.paginatedData.totalPages);
             this.callback(this.currentPage, this.selectedLength, true);
             if(this.nav.numbers){
                 this.nav.numbers.innerHTML = "";

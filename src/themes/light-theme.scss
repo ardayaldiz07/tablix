@@ -1,20 +1,12 @@
-$background-color: #1a1a1a;
-$primary-color: #f0f0f0;
-$secondary-color: #333;
-$accent-color: #113f74;
-$text-color: #e0e0e0;
-
-body {
-  font-family: Arial, sans-serif;
-  background-color: $background-color;
-  color: $text-color;
-  margin: 0;
-  padding: 20px;
-}
+$background-color: #f0f0f0; // Açık arka plan rengi
+$primary-color: #333; // Koyu metin rengi
+$secondary-color: #ffffff; // Beyaz için
+$accent-color: #39c250; // Açık mavi ton
+$text-color: #1a1a1a; // Koyu metin rengi
 
 .tablix {
   overflow: hidden;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 
   .tx-top {
     display: flex;
@@ -25,33 +17,30 @@ body {
     .tx-filter, .tx-search {
       display: flex;
       align-items: center;
-      
 
       select, input {
         cursor: pointer;
         padding: 10px;
         margin-left: 10px;
-        border: none;
-        background-color:  lighten($background-color, 8%);
+        border: 1px solid $accent-color; // Çerçeve rengi
+        background-color: lighten($background-color, 5%);
         color: $text-color;
         transition: all ease 0.3s;
       }
 
-      select{
-        &:hover{
+      select {
+        &:hover {
           transition: ease all 0.3s;
           box-shadow: -2px 2px 5px $accent-color;
         }
       }
 
-      input{
-        &:hover{
+      input {
+        &:hover {
           transition: ease all 0.3s;
           box-shadow: 2px 2px 5px $accent-color;
         }
       }
-
-
     }
   }
 
@@ -64,24 +53,13 @@ body {
 
       thead {
         background-color: $secondary-color;
-        tr{
-          background-color: lighten($background-color, 8%);
+        tr {
+          background-color: darken($background-color, 1%);
         }
         th {
           border-bottom: 2px solid $accent-color;
-          // border-right: 2px solid $accent-color;
-          // border-bottom: 2px solid $accent-color;
-
-
-          // border:2px solid $accent-color;
-
-          // border-left:2px solid $accent-color;
-          // border-bottom: 2px solid $accent-color;
-
-          
           padding: 12px;
           text-align: left;
-          
           color: $primary-color;
 
           .sort-icon {
@@ -91,14 +69,13 @@ body {
         }
       }
 
-      .tx-body{
+      .tx-body {
         .tx-tr {
           transition: all ease 0.3s;
-          &:hover{
-            
-            background-color: $accent-color;
+          &:hover {
+            background-color: lighten($accent-color, 40%); // Daha açık ton
           }
-          
+
           td {
             padding: 12px;
             border-bottom: 1px solid $secondary-color;
@@ -106,12 +83,10 @@ body {
           }
         }
       }
-      
     }
   }
 
   .tx-bottom {
-    
     padding: 15px;
     background-color: $secondary-color;
 
@@ -119,6 +94,7 @@ body {
       justify-content: space-between;
       align-items: center;
       display: flex;
+
       .tx-length-select, .tx-selectBox {
         text-align: center;
         margin-left: 10px;
@@ -127,25 +103,25 @@ body {
         cursor: pointer;
       }
 
-      .tx-length-select{
+      .tx-length-select {
         height: 30px;
       }
 
-      .tx-selectBox{
-        background-color: darken($accent-color,10%);
+      .tx-selectBox {
+        background-color: lighten($accent-color, 10%);
       }
 
-      .tx-navigate-buttons{
+      .tx-navigate-buttons {
         display: flex;
       }
 
-      .tx-page-number{
+      .tx-page-number {
         width: 35px;
         justify-content: center;
         transition: all ease 0.3s;
-        &.active{
+        &.active {
           transition: all ease 0.3s;
-          background-color: darken($accent-color, 10%);
+          background-color: lighten($accent-color, 15%);
         }
       }
 
@@ -159,7 +135,7 @@ body {
         cursor: pointer;
 
         &:hover {
-          background-color: darken($accent-color, 10%);
+          background-color: lighten($accent-color, 10%);
         }
       }
     }
